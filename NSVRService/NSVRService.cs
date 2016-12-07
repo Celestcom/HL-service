@@ -17,14 +17,14 @@ namespace NSVRService
 		public NSVRService()
 		{
 			InitializeComponent();
-			if (!System.Diagnostics.EventLog.SourceExists("MySource"))
+			/*if (!System.Diagnostics.EventLog.SourceExists("MySource"))
 			{
 				System.Diagnostics.EventLog.CreateEventSource("MySource", "MyNewLog");
 			}
 
 			eventLog1.Source = "MySource";
 			eventLog1.Log = "MyNewLog";
-
+			*/
 		}
 
 		internal void TestStartupAndStop(string[] args)
