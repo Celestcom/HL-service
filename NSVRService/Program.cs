@@ -17,14 +17,14 @@ namespace NSVRService
 		{
 			if (Environment.UserInteractive)
 			{
-				MyNewService service1 = new MyNewService();
+				NSVRService service1 = new NSVRService();
 				service1.TestStartupAndStop(args);
 			}else
 			{
 				ServiceBase[] ServicesToRun;
 				ServicesToRun = new ServiceBase[]
 				{
-				new MyNewService()
+				new NSVRService()
 				};
 				ServiceBase.Run(ServicesToRun);
 			}

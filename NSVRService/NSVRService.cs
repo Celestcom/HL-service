@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Threading;
 namespace NSVRService
 {
-	public partial class MyNewService : ServiceBase
+	public partial class NSVRService : ServiceBase
 	{
 		private IntPtr _ptr;
 		private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
 		private Thread _thread;
-		public MyNewService()
+		public NSVRService()
 		{
 			InitializeComponent();
 			if (!System.Diagnostics.EventLog.SourceExists("MySource"))

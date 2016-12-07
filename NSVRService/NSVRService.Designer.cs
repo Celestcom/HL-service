@@ -1,6 +1,6 @@
 ﻿namespace NSVRService
 {
-	partial class MyNewService
+	partial class NSVRService
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -31,9 +31,9 @@
 			this.eventLog1 = new System.Diagnostics.EventLog();
 			((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
 			// 
-			// MyNewService
+			// NSVRService
 			// 
-			this.ServiceName = "MyNewService";
+			this.ServiceName = "NullSpace VR Runtime";
 			((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
 
 		}

@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop.cs" />
-    <Compile Include="MyNewService.cs">
+    <Compile Include="NSVRService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ProjectInstaller.cs">
@@ -59,8 +59,8 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service1.Designer.cs">
-      <DependentUpon>MyNewService.cs</DependentUpon>
+    <Compile Include="NSVRService.Designer.cs">
+      <DependentUpon>NSVRService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,8 +69,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyNewService.resx">
-      <DependentUpon>MyNewService.cs</DependentUpon>
+    <EmbeddedResource Include="NSVRService.resx">
+      <DependentUpon>NSVRService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
