@@ -16,11 +16,12 @@ namespace NSVRService
 		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern void NSEngine_Destroy(IntPtr ptr);
 
-		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern void NSEngine_Update(IntPtr ptr);
-
+	
 		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern bool NSEngine_Shutdown(IntPtr ptr);
+
+		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		public static extern void NSEngine_StartThread(IntPtr ptr);
 
 	}
 }
