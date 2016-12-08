@@ -15,13 +15,25 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_37D3AA5269FA4A47B885FFC535CAD01A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_65120A3335354E70A151BC88ABF59F97"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_741A54FD31E04BDE98B93798E718892E"
+        "MsmKey" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -29,6 +41,12 @@
         {
         "MsmKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
         "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,6 +82,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -92,6 +116,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -116,6 +148,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -202,10 +242,30 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_741A54FD31E04BDE98B93798E718892E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_37D3AA5269FA4A47B885FFC535CAD01A"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Debug\\NS_Unreal_SDK.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Release\\NS_Unreal_SDK.dll"
             "TargetName" = "8:NSVREngine.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
+            {
+            "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
+            "TargetName" = "8:DesktopIcon.ico"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Condition" = "8:"
@@ -390,7 +450,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{2A88EA1B-DF48-45E8-A663-ADA254AC26F0}"
+        "PackageCode" = "8:{C0A7DA8F-0AB4-49E9-A5AB-370245C39B44}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -510,6 +570,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_26A02CF352EC410F8A1323927339A75C"
+            {
+            "Name" = "8:NullSpace Service"
+            "Arguments" = "8:"
+            "Description" = "8:Launch the NullSpace GUI, allowing you to control the status of the NullSpace Service"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_3C173D4F655748028AE21B1D2B357B89"
+            "Folder" = "8:_09EE07D7C5EA43FB9725A22A07353ACF"
+            "WorkingFolder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Icon" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -909,9 +983,37 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3C173D4F655748028AE21B1D2B357B89"
+            {
+            "SourcePath" = "8:..\\NSVRGui\\obj\\Release\\NSVRGui.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{F7466A5C-9685-4F41-87D6-F0F79C544EF2}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_65120A3335354E70A151BC88ABF59F97"
             {
-            "SourcePath" = "8:..\\NSVRService\\obj\\Debug\\NSVRService.exe"
+            "SourcePath" = "8:..\\NSVRService\\obj\\Release\\NSVRService.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"

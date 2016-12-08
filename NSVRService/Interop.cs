@@ -10,17 +10,17 @@ namespace NSVRService
 	public static class Interop
 	{
 
-		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern IntPtr NSEngine_Create();
 
-		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern void NSEngine_Destroy(IntPtr ptr);
 
 	
-		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern bool NSEngine_Shutdown(IntPtr ptr);
 
-		[DllImport("NSVREngine", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
 		public static extern void NSEngine_StartThread(IntPtr ptr);
 
 	}

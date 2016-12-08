@@ -88,9 +88,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\TrayIconServiceOff.ico" />
+    <None Include="Resources\TrayIconServiceOff.ico" />
+    <Content Include="Resources\TrayIconServiceOffSuitConnected.ico" />
     <Content Include="Resources\TrayIconServiceOn.ico" />
+    <Content Include="Resources\TrayIconServiceOnSuitConnected.ico" />
     <Content Include="TrayIconServiceOff.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

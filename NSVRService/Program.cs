@@ -15,6 +15,8 @@ namespace NSVRService
 		/// 
 		static void Main(string[] args)
 		{
+			System.IO.Directory.SetCurrentDirectory(System.AppDomain.CurrentDomain.BaseDirectory);
+
 			if (Environment.UserInteractive)
 			{
 				NSVRService service1 = new NSVRService();

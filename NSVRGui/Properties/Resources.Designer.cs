@@ -63,9 +63,39 @@ namespace NSVRGui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon TrayIcon {
+        internal static System.Drawing.Icon TrayIconServiceOff {
             get {
-                object obj = ResourceManager.GetObject("TrayIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("TrayIconServiceOff", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TrayIconServiceOffSuitConnected {
+            get {
+                object obj = ResourceManager.GetObject("TrayIconServiceOffSuitConnected", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TrayIconServiceOn {
+            get {
+                object obj = ResourceManager.GetObject("TrayIconServiceOn", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TrayIconServiceOnSuitConnected {
+            get {
+                object obj = ResourceManager.GetObject("TrayIconServiceOnSuitConnected", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
