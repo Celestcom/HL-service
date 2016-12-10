@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0930FE0B38464BDCB2B589BB26D11866"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -252,6 +258,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0930FE0B38464BDCB2B589BB26D11866"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\API_Environment\\Assets\\Plugins\\x86\\NSLoader.dll"
+            "TargetName" = "8:NSVRPlugin.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
             {
             "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
@@ -460,7 +486,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{C7ABB77D-498E-4BE8-BCD2-A33531A29328}"
+        "PackageCode" = "8:{3EBF330E-C0DC-4647-A069-027F75163064}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

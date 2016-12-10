@@ -27,14 +27,31 @@ namespace NSVRGui
 
 	public class MyCustomApplicationContext : ApplicationContext
 	{
-		private Timer _myTimer;
+		private Timer _checkStatusTimer;
 		private NotifyIcon trayIcon;
 		private ServiceController sc;
-		private NamedPipeClientStream _pipeClient;
-
-		private Timer _pipeConnectTimer;
+		private IntPtr _plugin;
+		bool disposed = false;
+		override protected void Dispose(bool disposing)
+		{
+			if (disposed)
+			{
+				return;
+			}
+			if (disposing)
+			{
+				Interop.NSVR_Delete(_plugin);
+			}
+			disposed = true;
+			base.Dispose(disposing);
+		}
+		~MyCustomApplicationContext()
+		{
+			Dispose(false);
+		}
 		public MyCustomApplicationContext()
 		{
+			
 			//Start monitoring for when our service opens its pipe
 			//_pipeConnectTimer = new Timer();
 			//_pipeConnectTimer.Interval = 500;
@@ -62,28 +79,31 @@ namespace NSVRGui
 				Visible = true
 			};
 
-		
+			_checkStatusTimer = new Timer();
+			_checkStatusTimer.Interval = 250;
+			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
+			_checkStatusTimer.Start();
+
+			_plugin = Interop.NSVR_Create();
+
 		}
-/*
-		private void ConnectToPipe(object sender, EventArgs e)
+		private void CheckStatusSuit(object sender, EventArgs e)
 		{
-			try
-			{
-				
-				_pipeClient.Connect(400);
-				_pipeConnectTimer.Stop();
-				var a = new byte[50];
-				int x = _pipeClient.Read(a, 0, 10);
-			}
-			catch (System.TimeoutException)
-			{
+			sc.Refresh();
+			var serviceStatus = sc.Status;
 
-			} catch (System.IO.IOException)
-			{
+			int status = Interop.NSVR_PollStatus(_plugin);
 
+			if (serviceStatus == ServiceControllerStatus.Running)
+			{
+				trayIcon.Icon = status == 2 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
+			} else
+			{
+				trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
 			}
+			
 		}
-		*/
+
 		void StartService(object sender, EventArgs e)
 		{
 			if (sc.Status == ServiceControllerStatus.Stopped)

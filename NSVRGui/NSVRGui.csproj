@@ -60,6 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -93,7 +94,7 @@
     <Content Include="Resources\TrayIconServiceOffSuitConnected.ico" />
     <Content Include="Resources\TrayIconServiceOn.ico" />
     <Content Include="Resources\TrayIconServiceOnSuitConnected.ico" />
-    <Content Include="TrayIconServiceOff.ico" />
+    <Content Include="Resources\TrayIconServiceOnSuitConnected2.ico" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
