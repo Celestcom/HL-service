@@ -28,6 +28,11 @@ namespace NSVRGui
 		public static extern void NSVR_FreeString(IntPtr value);
 
 
+		[DllImport("NSVRPlugin", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		public static extern void NSVR_HandleCommand(IntPtr value, uint handle, short command);
+
+		[DllImport("NSVRPlugin", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		public static extern void NSVR_CreateHaptic(IntPtr value, uint handle, byte[] data, uint size);
 
 	}
 }

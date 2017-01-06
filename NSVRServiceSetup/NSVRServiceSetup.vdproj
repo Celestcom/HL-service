@@ -15,8 +15,26 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_32AF33CC3884460696FE3E11C1D83714"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -28,24 +46,6 @@
         "Entry"
         {
         "MsmKey" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
-        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9FD3A40D0C2A4D32ADA521021A569E43"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -100,7 +100,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8EE936D64B7869EF5591ED196020FFB9"
+        "OwnerKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -264,17 +264,17 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_32AF33CC3884460696FE3E11C1D83714"
             {
-            "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
-            "TargetName" = "8:DesktopIcon.ico"
+            "SourcePath" = "8:..\\versions.txt"
+            "TargetName" = "8:release_notes.txt"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -284,14 +284,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8EE936D64B7869EF5591ED196020FFB9"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58016196CF250E32504A4DE3F513A7E3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_8EE936D64B7869EF5591ED196020FFB9"
+                    "_58016196CF250E32504A4DE3F513A7E3"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
@@ -315,17 +315,17 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FD3A40D0C2A4D32ADA521021A569E43"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
             {
-            "SourcePath" = "8:versions.txt"
-            "TargetName" = "8:release_notes.txt"
+            "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
+            "TargetName" = "8:DesktopIcon.ico"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -512,7 +512,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{BF0EC793-CB04-4B7D-8E0A-B68EC1C1B397}"
+        "PackageCode" = "8:{BF70E29C-9471-4827-A546-090A575B9A41}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -589,13 +589,35 @@
                         {
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F6054888226F482BBE3C7D0132B6D930"
                             {
-                            "Name" = "8:[Manufacturer]"
+                            "Name" = "8:NullSpace VR"
                             "Condition" = "8:"
                             "AlwaysCreate" = "11:FALSE"
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7AA6342D933945E0BF7DBAD437061B51"
+                                    {
+                                    "Name" = "8:Service"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:TRUE"
+                                    "DeleteAtUninstall" = "11:TRUE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                        }
+                                        "Values"
+                                        {
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_FDE09D9EF28B4884B2C722C1437DE3B4"
+                                            {
+                                            "Name" = "8:InstallPath"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]"
+                                            }
+                                        }
+                                    }
                                 }
                                 "Values"
                                 {
