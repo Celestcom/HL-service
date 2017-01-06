@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace NSVRGui
 		private NotifyIcon trayIcon;
 		private ServiceController sc;
 		private IntPtr _plugin;
+		private Timer sendHapticDelayed;
+		private uint _startupRoutineHandle = 4294967290;
 		bool disposed = false;
 		override protected void Dispose(bool disposing)
 		{
@@ -51,34 +54,29 @@ namespace NSVRGui
 		}
 		public MyCustomApplicationContext()
 		{
-			
-			//Start monitoring for when our service opens its pipe
-			//_pipeConnectTimer = new Timer();
-			//_pipeConnectTimer.Interval = 500;
-			//_pipeConnectTimer.Tick += new EventHandler(ConnectToPipe);
-			//_pipeConnectTimer.Start();
-
-			//_pipeClient = new NamedPipeClientStream(".", "testpipe", PipeDirection.In, PipeOptions.Asynchronous);
-
-
-			//_myTimer = new Timer();
+		
 
 			sc = new ServiceController();
 			sc.ServiceName = "NullSpace VR Runtime";
-	
+
+			var myMenu = new ContextMenu(new MenuItem[] {
+					new MenuItem("Enable Suit", StartService),
+					new MenuItem("Disable Suit", StopService),
+					new MenuItem("Test Suit", TestSuit),
+					new MenuItem("Version info", VersionInfo),
+
+					new MenuItem("Exit", Exit)
+				});
+			
+		
 			// Initialize Tray Icon
 			trayIcon = new NotifyIcon()
 			{
 				Icon = Properties.Resources.TrayIconServiceOff,
-				ContextMenu = new ContextMenu(new MenuItem[] {
-					new MenuItem("Enable Suit", StartService),
-					new MenuItem("Disable Suit", StopService),
-				//	new MenuItem("Test Suit"),
-					new MenuItem("Exit", Exit)
-				}),
+				ContextMenu = myMenu,
 				Visible = true
 			};
-
+			
 			_checkStatusTimer = new Timer();
 			_checkStatusTimer.Interval = 250;
 			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
@@ -86,26 +84,43 @@ namespace NSVRGui
 
 			_plugin = Interop.NSVR_Create();
 
+			sendHapticDelayed = new Timer();
+			sendHapticDelayed.Interval = 500;
+			sendHapticDelayed.Tick += DelayWhilePluginInitializes_Tick;
+
 		}
-		private void CheckStatusSuit(object sender, EventArgs e)
+		private void CheckStatusSuit(object sender, EventArgs args)
 		{
+		
 			sc.Refresh();
-			var serviceStatus = sc.Status;
 
-			int status = Interop.NSVR_PollStatus(_plugin);
+			try
+			{
+				var serviceStatus = sc.Status;
+				if (serviceStatus == ServiceControllerStatus.Running)
+				{
+					int status = Interop.NSVR_PollStatus(_plugin);
 
-			if (serviceStatus == ServiceControllerStatus.Running)
-			{
-				trayIcon.Icon = status == 2 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
-			} else
-			{
-				trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
+					trayIcon.Icon = status == 2 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
+				}
+				else
+				{
+					trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
+				}
 			}
-			
+			catch (System.InvalidOperationException e)
+			{
+				//loooks like the service was uninstalled, so we should quit the app!
+				trayIcon.Visible = false;
+				Application.Exit();
+			}
+
+
 		}
 
 		void StartService(object sender, EventArgs e)
 		{
+	
 			if (sc.Status == ServiceControllerStatus.Stopped)
 			{
 				try
@@ -113,7 +128,7 @@ namespace NSVRGui
 					sc.Start();
 					sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 5));
 					trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
-					
+
 				}
 				catch (InvalidOperationException)
 				{
@@ -137,6 +152,43 @@ namespace NSVRGui
 					MessageBox.Show("Could not stop the NullSpace Runtime!");
 				}
 			}
+		}
+
+		void TestSuit(object sender, EventArgs e)
+		{
+			if (sc.Status != ServiceControllerStatus.Running)
+			{
+				StartService(null, null);
+				
+				sendHapticDelayed.Start();
+			} else
+			{
+				CreateAndPlayHaptic();
+			}
+			
+
+
+		}
+		private void CreateAndPlayHaptic()
+		{
+			Interop.NSVR_CreateHaptic(_plugin, _startupRoutineHandle, Properties.Resources.StartupRoutine, (uint)Properties.Resources.StartupRoutine.Length);
+			Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 2);
+			Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 0);
+		}
+		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
+		{
+			CreateAndPlayHaptic();
+			sendHapticDelayed.Stop();
+		}
+
+		void VersionInfo(object sender, EventArgs e)
+		{
+			
+			VersionInfo v = new VersionInfo();
+
+			v.Show();
+			
+
 		}
 		void Exit(object sender, EventArgs e)
 		{
