@@ -78,7 +78,7 @@ namespace NSVRGui
 			};
 			
 			_checkStatusTimer = new Timer();
-			_checkStatusTimer.Interval = 250;
+			_checkStatusTimer.Interval = 180;
 			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
 			_checkStatusTimer.Start();
 
@@ -91,7 +91,8 @@ namespace NSVRGui
 		}
 		private void CheckStatusSuit(object sender, EventArgs args)
 		{
-		
+
+			_checkStatusTimer.Stop();
 			sc.Refresh();
 
 			try
@@ -107,6 +108,7 @@ namespace NSVRGui
 				{
 					trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
 				}
+				_checkStatusTimer.Start();
 			}
 			catch (System.InvalidOperationException e)
 			{
