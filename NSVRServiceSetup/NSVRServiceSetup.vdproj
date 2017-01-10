@@ -27,18 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
-        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_65120A3335354E70A151BC88ABF59F97"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -47,6 +35,18 @@
         {
         "MsmKey" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9763F95D035E5A5D924880850FE14010"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9763F95D035E5A5D924880850FE14010"
+        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -94,13 +94,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "OwnerKey" = "8:_9763F95D035E5A5D924880850FE14010"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -284,37 +284,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58016196CF250E32504A4DE3F513A7E3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_58016196CF250E32504A4DE3F513A7E3"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
             {
             "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
@@ -333,6 +302,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9763F95D035E5A5D924880850FE14010"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_9763F95D035E5A5D924880850FE14010"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AE72209635FD4A02BB1D4DB03F276F49"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A3608877055B498FA3A40AE715A24E85"
@@ -512,7 +512,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{BF70E29C-9471-4827-A546-090A575B9A41}"
+        "PackageCode" = "8:{9A527AE9-30AA-47C1-8A05-39F24C3D85DF}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -664,6 +664,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_3C173D4F655748028AE21B1D2B357B89"
             "Folder" = "8:_09EE07D7C5EA43FB9725A22A07353ACF"
+            "WorkingFolder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Icon" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9D0B1B98E5CD457B8C397FB3200B1273"
+            {
+            "Name" = "8:NullSpace Service"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_3C173D4F655748028AE21B1D2B357B89"
+            "Folder" = "8:_AE72209635FD4A02BB1D4DB03F276F49"
             "WorkingFolder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Icon" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
             "Feature" = "8:"

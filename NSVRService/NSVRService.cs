@@ -43,10 +43,9 @@ namespace NSVRService
 		{
 	
 			Interop.NSEngine_Shutdown(_ptr);
-			Thread.Sleep(300);
+			Thread.Sleep(500);
 			Interop.NSEngine_Destroy(_ptr);
 
-			_shutdownEvent.Set();
 			
 		}
 	}

@@ -1,24 +1,16 @@
-Chimera SDK v0.1.2-alpha
+Chimera SDK v0.1.3-internal
 ------------------------
-Service = v0.1.1-alpha
-Plugin = v0.2.0-alpha
-Unity SDK = v0.1.2-alpha
+Service = v0.1.2-internal-build2
+Plugin = v0.3.0-internal
+Unity SDK = v0.1.3-internal
 
 
 Release Notes
 ------------------------
 Service
-	- added suit connection/disconnection states to the tray icon
-	- enabled IMU tracking for chest for suits with firmware 2.3
-	- add support for strength modulation of sequences 
-
+	- Fix bug with handles not releasing correctly
+	- Add support for code generated haptics
 Plugin 
-	- fix Lower_Ab_Both bug (issue #1)
-	- add strength modulation of sequences at the pattern level
-	- allow initialization of plugin without a filesystem path
-	- fix directory parsing bug
-	
+	- Add support for code generated haptics
 Unity SDK
-	- fix Lower_Ab_Both bug (issue #1)
-	- add new library scene for testing haptics
-	- add a bunch of new demo haptics
+	- to be determined

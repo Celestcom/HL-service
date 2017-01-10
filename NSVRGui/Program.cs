@@ -100,7 +100,7 @@ namespace NSVRGui
 				if (serviceStatus == ServiceControllerStatus.Running)
 				{
 					int status = Interop.NSVR_PollStatus(_plugin);
-
+					//todo: check bug for not having right status?
 					trayIcon.Icon = status == 2 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
 				}
 				else
@@ -134,6 +134,10 @@ namespace NSVRGui
 				{
 					MessageBox.Show("Could not start the NullSpace Runtime!");
 				} 
+				catch (System.ServiceProcess.TimeoutException)
+				{
+					MessageBox.Show("Took too long to start the NullSpace Runtime! Runtime is stopped.");
+				}
 			}
 		}
 
@@ -150,6 +154,10 @@ namespace NSVRGui
 				catch (InvalidOperationException)
 				{
 					MessageBox.Show("Could not stop the NullSpace Runtime!");
+				}
+				catch (System.ServiceProcess.TimeoutException)
+				{
+					MessageBox.Show("Took too long to stop the NullSpace Runtime! ");
 				}
 			}
 		}
