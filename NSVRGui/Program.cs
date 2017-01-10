@@ -43,6 +43,7 @@ namespace NSVRGui
 			}
 			if (disposing)
 			{
+			
 				Interop.NSVR_Delete(_plugin);
 			}
 			disposed = true;
@@ -92,7 +93,6 @@ namespace NSVRGui
 		private void CheckStatusSuit(object sender, EventArgs args)
 		{
 
-			_checkStatusTimer.Stop();
 			sc.Refresh();
 
 			try
@@ -108,7 +108,6 @@ namespace NSVRGui
 				{
 					trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
 				}
-				_checkStatusTimer.Start();
 			}
 			catch (System.InvalidOperationException e)
 			{
@@ -202,6 +201,8 @@ namespace NSVRGui
 		}
 		void Exit(object sender, EventArgs e)
 		{
+			_checkStatusTimer.Stop();
+			
 			// Hide tray icon, otherwise it will remain shown until user mouses over it
 			trayIcon.Visible = false;
 			StopService(null, null);

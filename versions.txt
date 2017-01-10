@@ -1,16 +1,17 @@
-Chimera SDK v0.1.3-internal
-------------------------
-Service = v0.1.2-internal-build2
-Plugin = v0.3.0-internal
-Unity SDK = v0.1.3-internal
+Chimera SDK v0.1.3
+-----------------------
+Service = v0.1.2-rc1
+Plugin = v0.3.0-rc1
+Unity SDK = v0.1.3-rc1
 
 
 Release Notes
 ------------------------
 Service
 	- Fix bug with handles not releasing correctly
-	- Add support for code generated haptics
+	- Add backend support for code generated haptics
 Plugin 
-	- Add support for code generated haptics
+	- Add backend support for code generated haptics
 Unity SDK
-	- to be determined
+	- add new effects
+	- Update Haptics Explorer to v.06
