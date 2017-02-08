@@ -8,10 +8,18 @@ Unity SDK = v0.1.3-rc1
 Release Notes
 ------------------------
 Service
-	- Fix bug with handles not releasing correctly
-	- Add backend support for code generated haptics
+	- Fix bug with status update lag
 Plugin 
-	- Add backend support for code generated haptics
+	- Add support for CodeHaptics:
+		- CodeEffect
+		- CodeSequence
+		- CodePattern
+		- CodeExperience
+		- Now you can create completely dynamic effects on the fly!
+	- Testing bug-fix for bug which caused crash on destruction of plugin
 Unity SDK
-	- add new effects
-	- Update Haptics Explorer to v.06
+	- Update Haptics Explorer to v.08
+		- Added impulse generator, a dynamic haptic creation tool (emanation, traversal, and CodeSequence emanation)
+		- Added tooltips and use information
+		- Improved usability
+	- Added Desert of Danger (in-house demo) haptics and reference samples
