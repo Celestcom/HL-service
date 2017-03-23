@@ -21,7 +21,31 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3628F1B79AEA4367B5D095ED9F644DC4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5E887A84B3AE4978979F313048E5A11B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -39,18 +63,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9763F95D035E5A5D924880850FE14010"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9763F95D035E5A5D924880850FE14010"
-        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A3608877055B498FA3A40AE715A24E85"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -58,18 +70,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AA610E4CAD034F62BD7D22BB761E6FDC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C191C50EE22943D88294AC5D06933CB6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DFDD8B3EAC704B018D4B653142648FF3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -87,6 +87,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FDC3C2DA54C74DFD9C0E0527B7EB0A56"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
         "MsmSig" = "8:_UNDEFINED"
@@ -94,7 +100,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9763F95D035E5A5D924880850FE14010"
+        "OwnerKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -284,6 +290,72 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3628F1B79AEA4367B5D095ED9F644DC4"
+            {
+            "SourcePath" = "8:..\\..\\NSLoader\\Release\\NSLoader.dll"
+            "TargetName" = "8:NSVRPlugin.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58016196CF250E32504A4DE3F513A7E3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AE72209635FD4A02BB1D4DB03F276F49"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5E887A84B3AE4978979F313048E5A11B"
+            {
+            "SourcePath" = "8:..\\..\\HapticAssetTools\\Release\\HapticAssetTools.exe"
+            "TargetName" = "8:HapticAssetTools.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
             {
             "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
@@ -302,37 +374,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9763F95D035E5A5D924880850FE14010"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_9763F95D035E5A5D924880850FE14010"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_AE72209635FD4A02BB1D4DB03F276F49"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A3608877055B498FA3A40AE715A24E85"
@@ -375,46 +416,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C191C50EE22943D88294AC5D06933CB6"
-            {
-            "SourcePath" = "8:..\\..\\NSLoader\\Release\\NSLoader.dll"
-            "TargetName" = "8:NSVRPlugin.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DFDD8B3EAC704B018D4B653142648FF3"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Release\\NS_Unreal_SDK.dll"
-            "TargetName" = "8:NSVREngine.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E8BBD6BD9F3042E5B8D510BE513B7630"
             {
             "SourcePath" = "8:..\\..\\NullSpaceService\\NullSpaceService\\Effects.json"
@@ -446,6 +447,26 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:TRUE"
             "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FDC3C2DA54C74DFD9C0E0527B7EB0A56"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Release\\Driver.dll"
+            "TargetName" = "8:NSVREngine.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -512,7 +533,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{9A527AE9-30AA-47C1-8A05-39F24C3D85DF}"
+        "PackageCode" = "8:{92D4CAC3-050C-44F5-A9A1-BE9990D817F7}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -596,6 +617,28 @@
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_10C37D6B062349E49C6228418791B2BD"
+                                    {
+                                    "Name" = "8:AssetTool"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                        }
+                                        "Values"
+                                        {
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_31D18BFAB43F49758C65AE827DC9A8BB"
+                                            {
+                                            "Name" = "8:InstallPath"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]\\HapticAssetTools.exe"
+                                            }
+                                        }
+                                    }
                                     "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7AA6342D933945E0BF7DBAD437061B51"
                                     {
                                     "Name" = "8:Service"
@@ -1083,7 +1126,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3C173D4F655748028AE21B1D2B357B89"
             {
-            "SourcePath" = "8:..\\NSVRGui\\obj\\Release\\NSVRGui.exe"
+            "SourcePath" = "8:..\\NSVRGui\\obj\\Debug\\NSVRGui.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
@@ -1111,7 +1154,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_65120A3335354E70A151BC88ABF59F97"
             {
-            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Release\\NSVRService.exe"
+            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Debug\\NSVRService.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"

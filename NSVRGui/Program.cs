@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.ServiceProcess;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NSVRGui
@@ -79,12 +72,12 @@ namespace NSVRGui
 			};
 			
 			_checkStatusTimer = new Timer();
-			_checkStatusTimer.Interval = 180;
+			_checkStatusTimer.Interval = 125;
 			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
 			_checkStatusTimer.Start();
 
 			_plugin = Interop.NSVR_Create();
-
+			StartService(null, null);
 			sendHapticDelayed = new Timer();
 			sendHapticDelayed.Interval = 500;
 			sendHapticDelayed.Tick += DelayWhilePluginInitializes_Tick;
@@ -180,9 +173,9 @@ namespace NSVRGui
 		}
 		private void CreateAndPlayHaptic()
 		{
-			Interop.NSVR_CreateHaptic(_plugin, _startupRoutineHandle, Properties.Resources.StartupRoutine, (uint)Properties.Resources.StartupRoutine.Length);
-			Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 2);
-			Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 0);
+			//Interop.NSVR_CreateHaptic(_plugin, _startupRoutineHandle, Properties.Resources.StartupRoutine, (uint)Properties.Resources.StartupRoutine.Length);
+			//Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 2);
+			//Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 0);
 		}
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
 		{

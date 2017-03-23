@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NSVRService
 {
@@ -11,17 +7,23 @@ namespace NSVRService
 	{
 
 		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern IntPtr NSEngine_Create();
+		public static extern IntPtr NSVR_Driver_Create();
 
 		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern void NSEngine_Destroy(IntPtr ptr);
+		public static extern void NSVR_Driver_Destroy(IntPtr ptr);
 
 	
 		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern bool NSEngine_Shutdown(IntPtr ptr);
+		public static extern bool NSVR_Driver_Shutdown(IntPtr ptr);
 
 		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern void NSEngine_StartThread(IntPtr ptr);
+		public static extern void NSVR_Driver_StartThread(IntPtr ptr);
+
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		public static extern uint NSVR_Driver_GetVersion(IntPtr ptr);
+
+		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		public static extern int NSVR_Driver_IsCompatibleDLL(IntPtr ptr);
 
 	}
 }

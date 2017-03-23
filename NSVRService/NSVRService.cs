@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System.IO.Pipes;
-using System.IO;
 
 namespace NSVRService
 {
@@ -32,9 +23,9 @@ namespace NSVRService
 		
 		protected override void OnStart(string[] args)
 		{
-		
-			_ptr = Interop.NSEngine_Create();
-			Interop.NSEngine_StartThread(_ptr);
+
+			_ptr = Interop.NSVR_Driver_Create();
+			Interop.NSVR_Driver_StartThread(_ptr);
 
 		}
 		
@@ -42,9 +33,9 @@ namespace NSVRService
 		protected override void OnStop()
 		{
 	
-			Interop.NSEngine_Shutdown(_ptr);
+			Interop.NSVR_Driver_Shutdown(_ptr);
 			Thread.Sleep(500);
-			Interop.NSEngine_Destroy(_ptr);
+			Interop.NSVR_Driver_Destroy(_ptr);
 
 			
 		}
