@@ -36,8 +36,8 @@ namespace NSVRGui
 			}
 			if (disposing)
 			{
-			
-				Interop.NSVR_Delete(_plugin);
+
+				Interop.NSVR_System_Release(_plugin);
 			}
 			disposed = true;
 			base.Dispose(disposing);
@@ -76,7 +76,7 @@ namespace NSVRGui
 			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
 			_checkStatusTimer.Start();
 
-			_plugin = Interop.NSVR_Create();
+			_plugin = Interop.NSVR_System_Create();
 			StartService(null, null);
 			sendHapticDelayed = new Timer();
 			sendHapticDelayed.Interval = 500;
@@ -93,9 +93,10 @@ namespace NSVRGui
 				var serviceStatus = sc.Status;
 				if (serviceStatus == ServiceControllerStatus.Running)
 				{
-					int status = Interop.NSVR_PollStatus(_plugin);
+					Interop.NSVR_System_Status statusStruct = new Interop.NSVR_System_Status();
+					Interop.NSVR_System_PollStatus(_plugin, ref statusStruct);
 					//todo: check bug for not having right status?
-					trayIcon.Icon = status == 2 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
+					trayIcon.Icon = statusStruct.ConnectedToSuit == 1 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
 				}
 				else
 				{

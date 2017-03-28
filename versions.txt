@@ -14,12 +14,13 @@ CodePattern -> HapticPattern
 
 Additionally, the Sequence, Pattern, and Experience classes were removed. If your code depends on these,
 you should change any instance of them into their respective Haptic-X equivalent. To load the asset,
-use HapticResources.LoadSequence("name_of_asset") or HapticResources.LoadPattern("name_of_asset"). This change
+use HapticSequence.LoadFromAsset("name_of_asset")  This change
 allows you to combine any file-defined haptic with code-defined haptics at runtime. 
 
 For example, you can now do this:
 
-HapticSequence heartbeat = HapticResources.LoadSequence("Haptics/my_heartbeat");
+HapticSequence heartbeat;
+heartbeat.LoadFromAsset("Haptics/my_heartbeat");
 HapticPattern scared = new HapticPattern();
 scared.AddSequence(0.0, AreaFlag.Chest_Left, heartbeat);
 scared.Play();
@@ -29,6 +30,7 @@ Release Notes
 ------------------------
 Service
 	- Many bugfixes and stability changes
+	- starts from enable
 Plugin 
 	- File-loading features have been removed, and relocated to the HapticAssetTools executable. 
 	- PollStatus now detects if the service is not running
@@ -36,6 +38,7 @@ Unity SDK
 	- Change CodeHaptics API:
 		- Now renamed to HapticEffect, HapticSequence, HapticPattern
 		- Created dynamically in code or by loaded from an asset
+	- Haptic package import window for easy importing of haptic assets
 HapticAssetTool
 	- Is responsible for taking raw haptic assets (.sequence, .pattern, .experience) and creating 
 	a HapticDefinitionFile. This is a simple json/protobuff format which completely specifies a haptic effect. 
