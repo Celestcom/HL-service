@@ -26,8 +26,9 @@ namespace NSVRGui
 		private ServiceController sc;
 		private IntPtr _plugin;
 		private Timer sendHapticDelayed;
-		private uint _startupRoutineHandle = 4294967290;
 		bool disposed = false;
+
+		IntPtr _testEffectData;
 		override protected void Dispose(bool disposing)
 		{
 			if (disposed)
@@ -36,7 +37,7 @@ namespace NSVRGui
 			}
 			if (disposing)
 			{
-
+				Interop.NSVR_EventList_Release(_testEffectData);
 				Interop.NSVR_System_Release(_plugin);
 			}
 			disposed = true;
@@ -48,7 +49,48 @@ namespace NSVRGui
 		}
 		public MyCustomApplicationContext()
 		{
+			Interop.AreaFlag[] order = {
+				Interop.AreaFlag.Forearm_Left,
+				Interop.AreaFlag.Upper_Arm_Left,
+				Interop.AreaFlag.Shoulder_Left,
+				Interop.AreaFlag.Back_Left,
+
+				Interop.AreaFlag.Chest_Left,
+				Interop.AreaFlag.Upper_Ab_Left,
+				Interop.AreaFlag.Mid_Ab_Left,
+				Interop.AreaFlag.Lower_Ab_Left,
+
+				Interop.AreaFlag.Lower_Ab_Right,
+				Interop.AreaFlag.Mid_Ab_Right,
+				Interop.AreaFlag.Upper_Ab_Right,
+				Interop.AreaFlag.Chest_Right,
+
+				Interop.AreaFlag.Back_Right,
+				Interop.AreaFlag.Shoulder_Right,
+				Interop.AreaFlag.Upper_Arm_Right,
+				Interop.AreaFlag.Forearm_Right
+
+			};
+			_testEffectData = Interop.NSVR_EventList_Create();
+			float offset = 0.0f;
+			foreach (var flag in order)
+			{
+				IntPtr myEvent = Interop.NSVR_Event_Create(Interop.NSVR_EventType.BASIC_HAPTIC_EVENT);
+
+				Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
+				Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
+				Interop.NSVR_Event_SetInteger(myEvent, "area", (int)flag);
+				Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
+				Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
+				Interop.NSVR_EventList_AddEvent(_testEffectData, myEvent);
+
+				Interop.NSVR_Event_Release(myEvent);
+				offset += 0.1f;
+			}
+
 		
+
+
 
 			sc = new ServiceController();
 			sc.ServiceName = "NullSpace VR Runtime";
@@ -174,9 +216,11 @@ namespace NSVRGui
 		}
 		private void CreateAndPlayHaptic()
 		{
-			//Interop.NSVR_CreateHaptic(_plugin, _startupRoutineHandle, Properties.Resources.StartupRoutine, (uint)Properties.Resources.StartupRoutine.Length);
-			//Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 2);
-			//Interop.NSVR_HandleCommand(_plugin, _startupRoutineHandle, 0);
+			var handle = Interop.NSVR_System_GenerateHandle(_plugin);
+			Interop.NSVR_EventList_Bind(_plugin, _testEffectData, handle);
+			Interop.NSVR_System_DoHandleCommand(_plugin, handle, Interop.NSVR_HandleCommand.PLAY);
+			Interop.NSVR_System_DoHandleCommand(_plugin, handle, Interop.NSVR_HandleCommand.RELEASE);
+
 		}
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
 		{
