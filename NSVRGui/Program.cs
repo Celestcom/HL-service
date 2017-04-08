@@ -37,8 +37,8 @@ namespace NSVRGui
 			}
 			if (disposing)
 			{
-				Interop.NSVR_EventList_Release(_testEffectData);
-				Interop.NSVR_System_Release(_plugin);
+				Interop.NSVR_Timeline_Release(ref _testEffectData);
+				Interop.NSVR_System_Release(ref _plugin);
 			}
 			disposed = true;
 			base.Dispose(disposing);
@@ -49,6 +49,11 @@ namespace NSVRGui
 		}
 		public MyCustomApplicationContext()
 		{
+			if (Interop.NSVR_FAILURE(Interop.NSVR_System_Create(ref _plugin)))
+			{
+				//bad news
+			}
+
 			Interop.AreaFlag[] order = {
 				Interop.AreaFlag.Forearm_Left,
 				Interop.AreaFlag.Upper_Arm_Left,
@@ -71,20 +76,21 @@ namespace NSVRGui
 				Interop.AreaFlag.Forearm_Right
 
 			};
-			_testEffectData = Interop.NSVR_EventList_Create();
+			Interop.NSVR_Timeline_Create(ref _testEffectData, _plugin);
 			float offset = 0.0f;
 			foreach (var flag in order)
 			{
-				IntPtr myEvent = Interop.NSVR_Event_Create(Interop.NSVR_EventType.BASIC_HAPTIC_EVENT);
+				IntPtr myEvent = IntPtr.Zero;
+				Interop.NSVR_Event_Create(ref myEvent, Interop.NSVR_EventType.Basic_Haptic_Event);
 
 				Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
 				Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
 				Interop.NSVR_Event_SetInteger(myEvent, "area", (int)flag);
 				Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
 				Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
-				Interop.NSVR_EventList_AddEvent(_testEffectData, myEvent);
+				Interop.NSVR_Timeline_AddEvent(_testEffectData, myEvent);
 
-				Interop.NSVR_Event_Release(myEvent);
+				Interop.NSVR_Event_Release(ref myEvent);
 				offset += 0.1f;
 			}
 
@@ -118,7 +124,7 @@ namespace NSVRGui
 			_checkStatusTimer.Tick += new EventHandler(CheckStatusSuit);
 			_checkStatusTimer.Start();
 
-			_plugin = Interop.NSVR_System_Create();
+			
 			StartService(null, null);
 			sendHapticDelayed = new Timer();
 			sendHapticDelayed.Interval = 500;
@@ -135,10 +141,15 @@ namespace NSVRGui
 				var serviceStatus = sc.Status;
 				if (serviceStatus == ServiceControllerStatus.Running)
 				{
-					Interop.NSVR_System_Status statusStruct = new Interop.NSVR_System_Status();
-					Interop.NSVR_System_PollStatus(_plugin, ref statusStruct);
-					//todo: check bug for not having right status?
-					trayIcon.Icon = statusStruct.ConnectedToSuit == 1 ? Properties.Resources.TrayIconServiceOnSuitConnected : Properties.Resources.TrayIconServiceOn;
+					Interop.NSVR_DeviceInfo deviceinfo = new Interop.NSVR_DeviceInfo();
+
+					if (Interop.NSVR_SUCCESS(Interop.NSVR_System_GetDeviceInfo(_plugin, ref deviceinfo))) {
+						trayIcon.Icon = Properties.Resources.TrayIconServiceOnSuitConnected;
+					} else
+					{
+						trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
+
+					}
 				}
 				else
 				{
@@ -216,10 +227,12 @@ namespace NSVRGui
 		}
 		private void CreateAndPlayHaptic()
 		{
-			var handle = Interop.NSVR_System_GenerateHandle(_plugin);
-			Interop.NSVR_EventList_Bind(_plugin, _testEffectData, handle);
-			Interop.NSVR_System_DoHandleCommand(_plugin, handle, Interop.NSVR_HandleCommand.PLAY);
-			Interop.NSVR_System_DoHandleCommand(_plugin, handle, Interop.NSVR_HandleCommand.RELEASE);
+			IntPtr playbackHandle = IntPtr.Zero;
+			Interop.NSVR_PlaybackHandle_Create(ref playbackHandle);
+
+			Interop.NSVR_Timeline_Transmit( _testEffectData, playbackHandle);
+			Interop.NSVR_PlaybackHandle_Command(playbackHandle, Interop.NSVR_PlaybackCommand.Play);
+			Interop.NSVR_PlaybackHandle_Release(ref playbackHandle);
 
 		}
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)

@@ -1,8 +1,8 @@
-Chimera SDK v0.1.4
+Chimera SDK To Be Determined
 -------------------
-Service = v0.1.2
-Plugin = v0.3.0
-Unity SDK = v0.1.4
+Service = v0.2.0
+Plugin = TBD
+Unity SDK = TBD
 
 
 Update guide for Unity Developers

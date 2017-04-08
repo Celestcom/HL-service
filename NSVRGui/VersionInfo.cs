@@ -22,8 +22,8 @@ namespace NSVRGui
 			serviceVersion = (Label)Controls["serviceversion"];
 			chimeraVersion = (Label)Controls["chimeraversion"];
 
-			serviceVersion.Text = "v0.1.2";
-			chimeraVersion.Text = "v0.1.4";
+			serviceVersion.Text = "v0.2.0";
+			chimeraVersion.Text = "To Be Determined";
 			Rectangle r = Screen.PrimaryScreen.WorkingArea;
 			this.StartPosition = FormStartPosition.Manual;
 			this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - this.Width, Screen.PrimaryScreen.WorkingArea.Height - this.Height);

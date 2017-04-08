@@ -99,7 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\StartupRoutine.bin" />
     <None Include="Resources\UnityEngine.dll" />
     <None Include="Resources\TrayIconServiceOff.ico" />
     <Content Include="Resources\TrayIconServiceOffSuitConnected.ico" />
