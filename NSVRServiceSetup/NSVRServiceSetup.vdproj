@@ -63,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7E79D09FFAE34F82A93C0486332EDB95"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,12 +88,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F9DC4FFECF8F491EAA852717961D06D7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FDC3C2DA54C74DFD9C0E0527B7EB0A56"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -381,6 +381,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E79D09FFAE34F82A93C0486332EDB95"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Release\\Driver.dll"
+            "TargetName" = "8:NSVREngine.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FB48D82F95A45CB9A19E5B967675B53"
             {
             "SourcePath" = "8:..\\NSVRGui\\Resources\\DesktopIcon.ico"
@@ -461,26 +481,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FDC3C2DA54C74DFD9C0E0527B7EB0A56"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\Release\\Driver.dll"
-            "TargetName" = "8:NSVREngine.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -538,7 +538,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{66AC29C2-5F79-42DF-9514-E43C46E411C0}"
+        "PackageCode" = "8:{59E4565C-CB93-4271-B40E-4728F773F51B}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1131,7 +1131,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3C173D4F655748028AE21B1D2B357B89"
             {
-            "SourcePath" = "8:..\\NSVRGui\\obj\\Debug\\NSVRGui.exe"
+            "SourcePath" = "8:..\\NSVRGui\\obj\\Release\\NSVRGui.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
@@ -1159,7 +1159,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_65120A3335354E70A151BC88ABF59F97"
             {
-            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Debug\\NSVRService.exe"
+            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Release\\NSVRService.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
