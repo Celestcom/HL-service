@@ -61,6 +61,24 @@ namespace NSVRGui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1.2.4.
+        /// </summary>
+        internal static string ChimeraVersion {
+            get {
+                return ResourceManager.GetString("ChimeraVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.2.3.
+        /// </summary>
+        internal static string ServiceVersion {
+            get {
+                return ResourceManager.GetString("ServiceVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon TrayIconServiceOff {
