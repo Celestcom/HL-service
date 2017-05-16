@@ -5,35 +5,60 @@ CodeEffect -> HapticEffect
 CodeSequence -> HapticSequence
 CodePattern -> HapticPattern
 
+
 Additionally, the Sequence, Pattern, and Experience classes were removed. If your code depends on these,
 you should change any instance of them into their respective Haptic-X equivalent. To load the asset,
-use HapticSequence.LoadFromAsset("name_of_asset")  This change
-allows you to combine any file-defined haptic with code-defined haptics at runtime. 
+use HapticSequence.LoadFromAsset("directory/name_of_asset")
 
-For example, you can now do this:
+This change means that assets must now be imported into unity using the Tools/Hardlight Window -> Package Importer GUI. 
 
-HapticSequence heartbeat;
+
+You can now combine file-defined haptics with code-defined haptics, because they are the same thing:
+
+HapticSequence heartbeat = new HapticSequence();
 heartbeat.LoadFromAsset("Haptics/my_heartbeat");
 HapticPattern scared = new HapticPattern();
 scared.AddSequence(0.0, AreaFlag.Chest_Left, heartbeat);
+scared.AddSequence(1.0, AreaFlag.Chest_Left, heartbeat);
 scared.Play();
+
+Please view the wiki at https://github.com/NullSpaceVR/NullSpace-Chimera-SDK/wiki
+
+For feedback, please write us here https://docs.google.com/a/nullspacevr.com/forms/d/e/1FAIpQLSe3aVFxPJRbj9XVhiZpYxSq26RN9yWumBUu0rCacjCu-XkFwQ/viewform
 
 
 Release Notes
 ------------------------
 Service
 	- Many bugfixes and stability changes
-	- starts from enable
+	- Enables service automatically upon launching the GUI
+	- Incompatible with previous plugin versions!
 Plugin 
-	- File-loading features have been removed, and relocated to the HapticAssetTools executable. 
-	- PollStatus now detects if the service is not running
+	- File-loading features have been removed, and relocated to the HapticAssetTools executable 
+	- Now able to detect if suit is plugged in and if connected to service
+	- Incompatible with previous service versions!
 Unity SDK
 	- Change CodeHaptics API:
 		- Now renamed to HapticEffect, HapticSequence, HapticPattern
-		- Created dynamically in code or by loaded from an asset
-	- Haptic package import window for easy importing of haptic assets
+		- Created dynamically in code or loaded from an asset
+	- Added Hardlight Window (Tools/Hardlight Window)
+		- Package Importer for creating Unity Assets from haptic json files (.sequence, .pattern, .experience)
+		- Suit Setup Tool for easily creating haptic events from Unity collisions
+	- Added ability to see plugin version
+	- Haptics Explorer improvements:
+		- Added drawing mode
+		- Auto reload effects if edited while Haptics Explorer is open (live-editing)
+		- Added hotkeys 
+		- Better error reporting
 HapticAssetTool
 	- Is responsible for taking raw haptic assets (.sequence, .pattern, .experience) and creating 
-	a HapticDefinitionFile. This is a simple json/protobuff format which completely specifies a haptic effect. 
-	The json format can be imported into Unity and loaded as an asset. 
+	a HapticDefinitionFile. This functionality is wrapped in the Unity SDK with the new Package Importer (located inside Tools/Hardlight Window)
+
+Unreal SDK
+	- Created a basic Hardlight plugin for UE4.15
+	- Includes ability to import HDFs (see documentation on HapticAssetTool)
+	- Includes ability to create Haptic Sequences, Patterns, and Experiences as .uassets
+	- Blueprint functions to load, control, and play effects
+	- Preparing support for Impulse Generator
+
 	
