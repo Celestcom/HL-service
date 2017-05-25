@@ -1,7 +1,7 @@
-Chimera SDK 0.2.0-internal-may15-1
+Chimera SDK 0.2.0
 ------------------------
-Service = v0.2.0-internal
-Plugin = v0.3.0
-Unity SDK = v0.1.4
+Service = v0.2.0
+Plugin = v0.4.0
+Unity SDK = v0.2.0
 Asset Tool = v0.1.0
 
