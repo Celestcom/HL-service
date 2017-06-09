@@ -1,7 +1,8 @@
-Chimera SDK 0.2.0
+Chimera SDK 0.2.2
 ------------------------
-Service = v0.2.0
-Plugin = v0.4.0
-Unity SDK = v0.2.0
-Asset Tool = v0.1.0
+Service = v0.2.1
+Plugin = v0.4.1
+Unity SDK = v0.2.2
+Asset Tool = v0.1.1
+Unreal Plugin = v0.1.1
 
