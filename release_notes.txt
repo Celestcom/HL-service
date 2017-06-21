@@ -5,7 +5,7 @@ Release Notes
 Service
     - No changes
 Plugin 
-    - No changes
+    -  Much better performance and stability
 Unity SDK
     - Improved the VRMimic tools
     - Organized and commented the Meteor Massage Demo
@@ -13,6 +13,7 @@ Unity SDK
 Unreal SDK
     - Added BasicHapticHelper (for checking service connection and cleaning up haptics on scene change)
     - Expanded the Blueprint Function Library with better error reporting.
+	- Creating handles with null assets now results in an empty handle, rather than a game-disrupting error
 HapticAssetTool
     - No changes
 	
