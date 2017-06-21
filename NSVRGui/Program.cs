@@ -76,7 +76,7 @@ namespace NSVRGui
 				Interop.AreaFlag.Forearm_Right
 
 			};
-			Interop.NSVR_Timeline_Create(ref _testEffectData, _plugin);
+			Interop.NSVR_Timeline_Create(ref _testEffectData);
 			float offset = 0.0f;
 			foreach (var flag in order)
 			{
@@ -230,7 +230,7 @@ namespace NSVRGui
 			IntPtr playbackHandle = IntPtr.Zero;
 			Interop.NSVR_PlaybackHandle_Create(ref playbackHandle);
 
-			Interop.NSVR_Timeline_Transmit( _testEffectData, playbackHandle);
+			Interop.NSVR_Timeline_Transmit( _testEffectData, _plugin, playbackHandle);
 			Interop.NSVR_PlaybackHandle_Command(playbackHandle, Interop.NSVR_PlaybackCommand.Play);
 			Interop.NSVR_PlaybackHandle_Release(ref playbackHandle);
 

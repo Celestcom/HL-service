@@ -137,7 +137,7 @@ namespace NSVRGui
 
 		/* Timelines */
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
-		public static extern int NSVR_Timeline_Create(ref IntPtr eventListPtr, IntPtr systemPtr);
+		public static extern int NSVR_Timeline_Create(ref IntPtr eventListPtr);
 
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
 		public static extern void NSVR_Timeline_Release(ref IntPtr listPtr);
@@ -146,7 +146,7 @@ namespace NSVRGui
 		public static extern int NSVR_Timeline_AddEvent(IntPtr list, IntPtr eventPtr);
 
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
-		public static extern int NSVR_Timeline_Transmit(IntPtr timeline, IntPtr handlePr);
+		public static extern int NSVR_Timeline_Transmit(IntPtr timeline, IntPtr systemPtr, IntPtr handlePr);
 
 		/* Playback */
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
