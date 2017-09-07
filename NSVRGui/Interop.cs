@@ -50,8 +50,8 @@ namespace NSVRGui
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		public struct NSVR_ServiceInfo
 		{
-			uint ServiceMajor;
-			uint ServiceMinor;
+			public uint ServiceMajor;
+			public uint ServiceMinor;
 		};
 		
 
@@ -67,95 +67,105 @@ namespace NSVRGui
 			Pause,
 			Reset
 		}
+		public enum NSVR_DeviceStatus
+		{
+			Unknown = 0,
+			Connected = 1,
+			Disconnected = 2
+		}
 
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		public struct NSVR_DeviceInfo
 		{
+			IntPtr _internal;
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
-			char[] ProductName;
-			short FirmwareMajor;
-			short FirmwareMinor;
-			//tracking capabilities?
+			public char[] ProductName;
+			NSVR_DeviceStatus Status;
+			
+			
 		};
 
 
-		  [DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		  [DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Create(ref IntPtr systemPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void NSVR_System_Release(ref IntPtr value);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern uint NSVR_GetVersion();
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_IsCompatibleDLL();
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_GetServiceInfo(IntPtr systemPtr, ref NSVR_ServiceInfo infoPtr);
 
 		/* Haptics Engine */
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Haptics_Pause(IntPtr systemPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Haptics_Resume(IntPtr systemPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Haptics_Destroy(IntPtr systemPtr);
 
 		/* Devices */
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
-		public static extern int NSVR_System_GetDeviceInfo(IntPtr systemPtr, ref NSVR_DeviceInfo infoPtr);
+	
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int NSVR_System_GetNextDevice(IntPtr systemPtr, ref NSVR_DeviceInfo device);
 
 		/* Tracking */
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Tracking_Poll(IntPtr ptr, ref NSVR_TrackingUpdate updatePtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Tracking_Enable(IntPtr ptr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Tracking_Disable(IntPtr ptr);
 
 
 		/* Timeline API */
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Event_Create(ref IntPtr eventPtr, NSVR_EventType type);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void NSVR_Event_Release(ref IntPtr eventPtr);
 
-		[DllImport("NSVRPlugin.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Event_SetFloat(IntPtr eventPtr, string key, float value);
 
-		[DllImport("NSVRPlugin.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Event_SetInteger(IntPtr eventPtr, string key, int value);
 
+		[DllImport("NSVRPlugin.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern int NSVR_Event_SetUInt32s(IntPtr eventPtr, string key, [In, Out] UInt32[] values, uint length);
 
 		/* Timelines */
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Timeline_Create(ref IntPtr eventListPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void NSVR_Timeline_Release(ref IntPtr listPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Timeline_AddEvent(IntPtr list, IntPtr eventPtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_Timeline_Transmit(IntPtr timeline, IntPtr systemPtr, IntPtr handlePr);
 
 		/* Playback */
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_PlaybackHandle_Create(ref IntPtr handlePtr);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_PlaybackHandle_Command(IntPtr handlePtr, NSVR_PlaybackCommand command);
 
-		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void NSVR_PlaybackHandle_Release(ref IntPtr handlePtr);
 
 

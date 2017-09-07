@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Windows.Forms;
 
@@ -19,6 +20,15 @@ namespace NSVRGui
 		}
 	}
 
+	public class ServiceVersion
+	{
+		public uint Major;
+		public uint Minor;
+		public override string ToString()
+		{
+			return string.Format("{0}.{1}", Major, Minor);
+		}
+	}
 	public class MyCustomApplicationContext : ApplicationContext
 	{
 		private Timer _checkStatusTimer;
@@ -26,6 +36,10 @@ namespace NSVRGui
 		private ServiceController sc;
 		private IntPtr _plugin;
 		private Timer sendHapticDelayed;
+		private Dictionary<string, Interop.NSVR_DeviceInfo> devices;
+		private ServiceVersion serviceVersion; 
+
+		private MenuItem connectedDevices;
 		bool disposed = false;
 
 		IntPtr _testEffectData;
@@ -49,6 +63,10 @@ namespace NSVRGui
 		}
 		public MyCustomApplicationContext()
 		{
+			serviceVersion = new ServiceVersion();
+			devices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
+			connectedDevices = new MenuItem("Plugins", new MenuItem[] { });
+
 			if (Interop.NSVR_FAILURE(Interop.NSVR_System_Create(ref _plugin)))
 			{
 				//bad news
@@ -78,21 +96,21 @@ namespace NSVRGui
 			};
 			Interop.NSVR_Timeline_Create(ref _testEffectData);
 			float offset = 0.0f;
-			foreach (var flag in order)
-			{
-				IntPtr myEvent = IntPtr.Zero;
-				Interop.NSVR_Event_Create(ref myEvent, Interop.NSVR_EventType.Basic_Haptic_Event);
+			//foreach (var flag in order)
+			//{
+			//	IntPtr myEvent = IntPtr.Zero;
+			//	Interop.NSVR_Event_Create(ref myEvent, Interop.NSVR_EventType.Basic_Haptic_Event);
 
-				Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
-				Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
-				Interop.NSVR_Event_SetInteger(myEvent, "area", (int)flag);
-				Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
-				Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
-				Interop.NSVR_Timeline_AddEvent(_testEffectData, myEvent);
+			//	Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
+			//	Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
+			//	Interop.NSVR_Event_SetUInt32s(myEvent, "area", (int)flag);
+			//	Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
+			//	Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
+			//	Interop.NSVR_Timeline_AddEvent(_testEffectData, myEvent);
 
-				Interop.NSVR_Event_Release(ref myEvent);
-				offset += 0.1f;
-			}
+			//	Interop.NSVR_Event_Release(ref myEvent);
+			//	offset += 0.1f;
+			//}
 
 		
 
@@ -102,14 +120,14 @@ namespace NSVRGui
 			sc.ServiceName = "NullSpace VR Runtime";
 
 			var myMenu = new ContextMenu(new MenuItem[] {
-					new MenuItem("Enable Suit", StartService),
-					new MenuItem("Disable Suit", StopService),
+					new MenuItem("Enable Runtime", StartService),
+					new MenuItem("Disable Runtime", StopService),
 					new MenuItem("Test Suit", TestSuit),
 					new MenuItem("Version info", VersionInfo),
-
-					new MenuItem("Exit", Exit)
+					connectedDevices,
+				new MenuItem("Exit", Exit)
 				});
-			
+
 		
 			// Initialize Tray Icon
 			trayIcon = new NotifyIcon()
@@ -141,11 +159,51 @@ namespace NSVRGui
 				var serviceStatus = sc.Status;
 				if (serviceStatus == ServiceControllerStatus.Running)
 				{
-					Interop.NSVR_DeviceInfo deviceinfo = new Interop.NSVR_DeviceInfo();
+					Interop.NSVR_ServiceInfo serviceInfo = new Interop.NSVR_ServiceInfo();
 
-					if (Interop.NSVR_SUCCESS(Interop.NSVR_System_GetDeviceInfo(_plugin, ref deviceinfo))) {
+					
+					if (Interop.NSVR_SUCCESS(Interop.NSVR_System_GetServiceInfo(_plugin, ref serviceInfo))) {
+						this.serviceVersion.Major = serviceInfo.ServiceMajor;
+						this.serviceVersion.Minor = serviceInfo.ServiceMinor;
+					}
+
+					Interop.NSVR_DeviceInfo info = new Interop.NSVR_DeviceInfo();
+
+					bool anythingPresent = false;
+
+					var newDevices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
+					while (Interop.NSVR_System_GetNextDevice(_plugin, ref info) > 0)
+					{
+
+						newDevices.Add(new string(info.ProductName), info);
+						anythingPresent = true;
+					}
+
+					foreach (var device in devices)
+					{
+						if (!newDevices.ContainsKey(device.Key))
+						{
+							connectedDevices.MenuItems.RemoveByKey(device.Key);
+						}
+
+					}
+					foreach (var device in newDevices)
+					{
+						if (!devices.ContainsKey(device.Key))
+						{
+							MenuItem a = new MenuItem(device.Key);
+							a.Name = device.Key;
+							connectedDevices.MenuItems.Add(a);
+						}
+					}
+					devices = newDevices;
+					if (anythingPresent) {
+
+
 						trayIcon.Icon = Properties.Resources.TrayIconServiceOnSuitConnected;
-					} else
+
+					}
+					else
 					{
 						trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
 
@@ -241,10 +299,12 @@ namespace NSVRGui
 			sendHapticDelayed.Stop();
 		}
 
+	
+
 		void VersionInfo(object sender, EventArgs e)
 		{
 			
-			VersionInfo v = new VersionInfo();
+			VersionInfo v = new VersionInfo(this.serviceVersion);
 
 			v.Show();
 			
