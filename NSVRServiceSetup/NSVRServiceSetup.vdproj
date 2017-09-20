@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_08DC4C375D55483FB6A0CF659F801F02"
+        "MsmKey" = "8:_09C84A32CE51456280EEB35C46891BFE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0AB0C4297A32499C908F226F7CB58936"
+        "MsmKey" = "8:_1127BC7C8BF14BEDB5B7656607DDE227"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,13 +33,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2937FCB142F14654AC5E0E78BCF43165"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_352CBF8927CE43C29689D66F933B96BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_44DCBD5A8FEF4148821645CD6336C5A7"
+        "MsmKey" = "8:_3D30C5E904DA44198DFBB4DB710B4ADF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,7 +75,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_62B1DE010D9D46ED8189489C026A84FA"
+        "MsmKey" = "8:_62E4842958084F8FB288B1446C74654B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,7 +87,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_69B2F730D6A8419DA5B990339F79644A"
+        "MsmKey" = "8:_72923128C5944239BA79A1A2D6B0472D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -87,13 +99,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_85780BF12FB24097AFA9BDF8BD983149"
+        "MsmKey" = "8:_AFE47779853B4150AC504548F0301F9E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9C49BD2A108D42348535A7B999DFD38D"
+        "MsmKey" = "8:_B6CCE23B73134A93B8AF1F7D4857EB91"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -105,31 +117,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F19B21C3637642798437C597EB435D6C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F5EA1D210C8E413DA3D52F4ED514F75B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F8EE51708AB14B92903E7B3ADF8DD34F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FD78AA1A83D34CB882AE2DB013ACAA5A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FEA726EC63CC4EA1AB65C5A33ED55F91"
+        "MsmKey" = "8:_F0D207BDD5364DA2B622FA12D7FF1DB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -312,17 +300,17 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08DC4C375D55483FB6A0CF659F801F02"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09C84A32CE51456280EEB35C46891BFE"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\Win32\\Driver.dll"
-            "TargetName" = "8:Driver.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\openvr\\OpenVRPlugin.dll"
+            "TargetName" = "8:OpenVRPlugin.dll"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_0780253CFBAF497CA93960D1EBED7204"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -332,17 +320,17 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0AB0C4297A32499C908F226F7CB58936"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1127BC7C8BF14BEDB5B7656607DDE227"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\Atoms.json"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\Atoms.json"
             "TargetName" = "8:Atoms.json"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -372,17 +360,57 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_44DCBD5A8FEF4148821645CD6336C5A7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2937FCB142F14654AC5E0E78BCF43165"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Plugins\\Release\\Win32\\HardlightPlugin.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\HardlightPlugin.dll"
             "TargetName" = "8:HardlightPlugin.dll"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_352CBF8927CE43C29689D66F933B96BB"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\Effects.json"
+            "TargetName" = "8:Effects.json"
+            "Tag" = "8:"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D30C5E904DA44198DFBB4DB710B4ADF"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\Instructions.json"
+            "TargetName" = "8:Instructions.json"
+            "Tag" = "8:"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -443,12 +471,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62B1DE010D9D46ED8189489C026A84FA"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62E4842958084F8FB288B1446C74654B"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\Instructions.json"
-            "TargetName" = "8:Instructions.json"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\HardlightPlugin_manifest.json"
+            "TargetName" = "8:HardlightPlugin_manifest.json"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -463,12 +491,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_69B2F730D6A8419DA5B990339F79644A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_72923128C5944239BA79A1A2D6B0472D"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Plugins\\Release\\Win32\\OpenVRPlugin.dll"
-            "TargetName" = "8:OpenVRPlugin.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\openvr\\openvr_api.dll"
+            "TargetName" = "8:openvr_api.dll"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_0780253CFBAF497CA93960D1EBED7204"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -503,10 +531,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_85780BF12FB24097AFA9BDF8BD983149"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFE47779853B4150AC504548F0301F9E"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\Effects.json"
-            "TargetName" = "8:Effects.json"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\Win32\\NSVREngine.dll"
+            "TargetName" = "8:NSVREngine.dll"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Condition" = "8:"
@@ -523,12 +551,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C49BD2A108D42348535A7B999DFD38D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6CCE23B73134A93B8AF1F7D4857EB91"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\Zones.json"
-            "TargetName" = "8:Zones.json"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\openvr\\OpenVRPlugin_manifest.json"
+            "TargetName" = "8:OpenVRPlugin_manifest.json"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_0780253CFBAF497CA93960D1EBED7204"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -563,97 +591,17 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F19B21C3637642798437C597EB435D6C"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F0D207BDD5364DA2B622FA12D7FF1DB2"
             {
-            "SourcePath" = "8:..\\..\\NSLoader\\build\\bin\\Release\\Win32\\NSLoader.dll"
-            "TargetName" = "8:NSVRPlugin.dll"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\hardlight\\Zones.json"
+            "TargetName" = "8:Zones.json"
             "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F5EA1D210C8E413DA3D52F4ED514F75B"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\OpenVRPlugin_manifest.json"
-            "TargetName" = "8:OpenVRPlugin_manifest.json"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F8EE51708AB14B92903E7B3ADF8DD34F"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\Win32\\Driver.dll"
-            "TargetName" = "8:NSVREngine.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Folder" = "8:_6F76F59A473148608DA5B3662EB9EA08"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FD78AA1A83D34CB882AE2DB013ACAA5A"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\openvr_api.dll"
-            "TargetName" = "8:openvr_api.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FEA726EC63CC4EA1AB65C5A33ED55F91"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\HardlightPlugin_manifest.json"
-            "TargetName" = "8:HardlightPlugin_manifest.json"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -690,6 +638,39 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D86A90A829D749B0863B392450207713"
+                    {
+                    "Name" = "8:plugins"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_1D31EA22592146B892CD3CD4FA081C04"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_0780253CFBAF497CA93960D1EBED7204"
+                            {
+                            "Name" = "8:openvr"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_B4FDB42AAAE44265ACC7FB404A6C4882"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_6F76F59A473148608DA5B3662EB9EA08"
+                            {
+                            "Name" = "8:hardlight"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_AC6F57168AD647A0AD1810BAB2B8955C"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_AE72209635FD4A02BB1D4DB03F276F49"
@@ -720,7 +701,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NSVRServiceSetup"
         "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{EDD428A4-DD56-40B3-8E24-D8C2C7771850}"
+        "PackageCode" = "8:{F2E26C39-58B7-481A-B141-F0F7BACE6753}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

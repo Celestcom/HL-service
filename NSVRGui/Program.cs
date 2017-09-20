@@ -172,12 +172,12 @@ namespace NSVRGui
 					bool anythingPresent = false;
 
 					var newDevices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
-					while (Interop.NSVR_System_GetNextDevice(_plugin, ref info) > 0)
-					{
+					//while (Interop.NSVR_System_GetNextDevice(_plugin, ref info) > 0)
+					//{
 
-						newDevices.Add(new string(info.ProductName), info);
-						anythingPresent = true;
-					}
+					//	newDevices.Add(new string(info.ProductName), info);
+					//	anythingPresent = true;
+					//}
 
 					foreach (var device in devices)
 					{
