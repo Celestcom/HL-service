@@ -74,19 +74,35 @@ namespace NSVRGui
 			Disconnected = 2
 		}
 
+		public enum NSVR_DeviceConcept
+		{
+			Unknown = 0,
+			Suit,
+			Controller,
+			Headwear,
+			Gun,
+			Sword
+		}
+
 		[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		public struct NSVR_DeviceInfo
 		{
-			IntPtr _internal;
+			public UInt32 Id;
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
-			public char[] ProductName;
-			NSVR_DeviceStatus Status;
-			
-			
+			public char[] Name;
+			public NSVR_DeviceConcept Concept;
+			public NSVR_DeviceStatus Status;
 		};
 
 
-		  [DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
+		public struct NSVR_DeviceInfo_Iter
+		{
+			public IntPtr _internal;
+			public NSVR_DeviceInfo DeviceInfo;
+		}
+
+
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Create(ref IntPtr systemPtr);
 
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -113,9 +129,13 @@ namespace NSVRGui
 		public static extern int NSVR_System_Haptics_Destroy(IntPtr systemPtr);
 
 		/* Devices */
-	
+
+
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int NSVR_System_GetNextDevice(IntPtr systemPtr, ref NSVR_DeviceInfo device);
+		public static extern int NSVR_DeviceInfo_Iter_Init(ref NSVR_DeviceInfo_Iter iter);
+
+		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern bool NSVR_DeviceInfo_Iter_Next(ref NSVR_DeviceInfo_Iter iter, IntPtr system);
 
 		/* Tracking */
 		[DllImport("NSVRPlugin.dll", CallingConvention = CallingConvention.Cdecl)]

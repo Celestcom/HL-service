@@ -65,7 +65,7 @@ namespace NSVRGui
 		{
 			serviceVersion = new ServiceVersion();
 			devices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
-			connectedDevices = new MenuItem("Plugins", new MenuItem[] { });
+			connectedDevices = new MenuItem("Devices", new MenuItem[] { });
 
 			if (Interop.NSVR_FAILURE(Interop.NSVR_System_Create(ref _plugin)))
 			{
@@ -167,17 +167,18 @@ namespace NSVRGui
 						this.serviceVersion.Minor = serviceInfo.ServiceMinor;
 					}
 
-					Interop.NSVR_DeviceInfo info = new Interop.NSVR_DeviceInfo();
+					Interop.NSVR_DeviceInfo_Iter iter = new Interop.NSVR_DeviceInfo_Iter();
+					Interop.NSVR_DeviceInfo_Iter_Init(ref iter);
 
 					bool anythingPresent = false;
 
 					var newDevices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
-					//while (Interop.NSVR_System_GetNextDevice(_plugin, ref info) > 0)
-					//{
+					while (Interop.NSVR_DeviceInfo_Iter_Next(ref iter, _plugin))
+					{
 
-					//	newDevices.Add(new string(info.ProductName), info);
-					//	anythingPresent = true;
-					//}
+						newDevices.Add(new string(iter.DeviceInfo.Name), iter.DeviceInfo);
+						anythingPresent = true;
+					}
 
 					foreach (var device in devices)
 					{
