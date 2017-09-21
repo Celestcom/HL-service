@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:NSVRServiceSetup"
+"ProjectName" = "8:HardlightServiceSetup"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -13,6 +13,12 @@
 "SccProvider" = "8:"
     "Hierarchy"
     {
+        "Entry"
+        {
+        "MsmKey" = "8:_087026DAD8D04DBAA11B0A78259B6B51"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
         "Entry"
         {
         "MsmKey" = "8:_09C84A32CE51456280EEB35C46891BFE"
@@ -63,14 +69,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
-        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
+        "MsmKey" = "8:_57F6CB881D8042C1A0AC0FD5DCCE52C6"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,25 +81,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_65120A3335354E70A151BC88ABF59F97"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7FB48D82F95A45CB9A19E5B967675B53"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_997ACF54309A489BAC6EBB2A4924042B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AFE47779853B4150AC504548F0301F9E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -123,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F0D207BDD5364DA2B622FA12D7FF1DB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -130,13 +118,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_65120A3335354E70A151BC88ABF59F97"
+        "OwnerKey" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -227,59 +221,59 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5DB6DE6C77194083BE2A499B5FCB90C7"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1042AE356D414298BC2A99FEABE76AA9"
             {
-            "Name" = "8:Primary output from NSVRService (Active)"
+            "Name" = "8:Primary output from HardlightService (Active)"
             "Condition" = "8:"
-            "Object" = "8:_65120A3335354E70A151BC88ABF59F97"
+            "Object" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
             "FileType" = "3:2"
             "InstallAction" = "3:3"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_E6F2558C_C1DB_42FF_943D_E582C13F8981"
+            "Identifier" = "8:_C51A75B9_108E_44B1_9079_820941DA2F8F"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_70F874F0CC4E4A77AD925CC18C675707"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8061837BBFC442B889B1FE7D550E1FEF"
             {
-            "Name" = "8:Primary output from NSVRService (Active)"
+            "Name" = "8:Primary output from HardlightService (Active)"
             "Condition" = "8:"
-            "Object" = "8:_65120A3335354E70A151BC88ABF59F97"
+            "Object" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
             "FileType" = "3:2"
             "InstallAction" = "3:4"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_37DDA170_CDE7_4EBF_B57C_F20177A834E5"
+            "Identifier" = "8:_4C2BEDE2_28F4_4115_B748_E372B42CB1DB"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7470B17796664F0F8754BB96A017AA8B"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_DE052B821E2845DBB004AF2990B6CF4E"
             {
-            "Name" = "8:Primary output from NSVRService (Active)"
+            "Name" = "8:Primary output from HardlightService (Active)"
             "Condition" = "8:"
-            "Object" = "8:_65120A3335354E70A151BC88ABF59F97"
-            "FileType" = "3:2"
-            "InstallAction" = "3:1"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_54D8F465_70D3_4135_B503_8A72E57711C9"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E644EA845BC645BC85F3DCDF6570EB7A"
-            {
-            "Name" = "8:Primary output from NSVRService (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_65120A3335354E70A151BC88ABF59F97"
+            "Object" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_5D344F63_025F_412E_9548_935A98932F17"
+            "Identifier" = "8:_91AADA17_CBF5_4B86_9FED_0682F96597F8"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_DFF2696801DC41E58EE4BD2054424B8F"
+            {
+            "Name" = "8:Primary output from HardlightService (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_B1C468DF_9712_4AE6_BE2B_551FCA691C30"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
@@ -306,6 +300,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_087026DAD8D04DBAA11B0A78259B6B51"
+            {
+            "SourcePath" = "8:..\\..\\NSLoader\\build\\bin\\Release\\Win32\\Hardlight.dll"
+            "TargetName" = "8:Hardlight.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09C84A32CE51456280EEB35C46891BFE"
             {
             "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\UnitTestWin32\\plugins\\openvr\\OpenVRPlugin.dll"
@@ -446,18 +460,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58016196CF250E32504A4DE3F513A7E3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57F6CB881D8042C1A0AC0FD5DCCE52C6"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\Win32\\HardlightPlatform.dll"
+            "TargetName" = "8:HardlightPlatform.dll"
             "Tag" = "8:"
-            "Folder" = "8:_AE72209635FD4A02BB1D4DB03F276F49"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -468,8 +476,8 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58A7BCA2844649768A97932C388E31BE"
@@ -503,46 +511,6 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_997ACF54309A489BAC6EBB2A4924042B"
-            {
-            "SourcePath" = "8:..\\..\\NSLoader\\build\\bin\\Release\\Win32\\NSLoader.dll"
-            "TargetName" = "8:NSVRPlugin.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFE47779853B4150AC504548F0301F9E"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\NS_Unreal_SDK\\build\\bin\\Release\\Win32\\NSVREngine.dll"
-            "TargetName" = "8:NSVREngine.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -720,20 +688,20 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:NSVRServiceSetup"
-        "ProductCode" = "8:{687F98A0-A0C7-4B97-AF85-0F748472CA27}"
-        "PackageCode" = "8:{AAF9FFDE-8B30-4A24-B6C6-53B06137ED26}"
+        "ProductName" = "8:HardlightService"
+        "ProductCode" = "8:{ED495204-1F2A-4FFD-86FF-287412D694D7}"
+        "PackageCode" = "8:{81D2812D-695F-4728-A6C7-1CA272D0644E}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:NullSpace VR"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:NSVRServiceSetup"
+        "Title" = "8:HardlightService"
         "Subject" = "8:"
         "ARPCONTACT" = "8:NullSpace VR"
         "Keywords" = "8:"
@@ -1341,9 +1309,9 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_65120A3335354E70A151BC88ABF59F97"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EEB9496DE72B40ABAEF17D4099C99673"
             {
-            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Release\\NSVRService.exe"
+            "SourcePath" = "8:..\\NSVRService\\obj\\x86\\Release\\HardlightService.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"

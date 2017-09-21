@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSVRService", "NSVRService\NSVRService.csproj", "{F1325293-CEAE-4B48-8CE5-C641FD577D04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardlightService", "NSVRService\HardlightService.csproj", "{F1325293-CEAE-4B48-8CE5-C641FD577D04}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NSVRServiceSetup", "NSVRServiceSetup\NSVRServiceSetup.vdproj", "{AD92AF8B-ECD3-4BD3-A094-0214DF103A02}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HardlightServiceSetup", "NSVRServiceSetup\NSVRServiceSetup.vdproj", "{AD92AF8B-ECD3-4BD3-A094-0214DF103A02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSVRGui", "NSVRGui\NSVRGui.csproj", "{F7466A5C-9685-4F41-87D6-F0F79C544EF2}"
 EndProject
