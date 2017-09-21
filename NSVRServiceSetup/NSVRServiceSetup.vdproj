@@ -75,6 +75,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
+        "OwnerKey" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_58A7BCA2844649768A97932C388E31BE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -124,19 +136,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EEB9496DE72B40ABAEF17D4099C99673"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3C173D4F655748028AE21B1D2B357B89"
+        "OwnerKey" = "8:_58016196CF250E32504A4DE3F513A7E3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -480,6 +486,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_58016196CF250E32504A4DE3F513A7E3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_58016196CF250E32504A4DE3F513A7E3"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A8053B5D682B4DD985E0F0EBFBBF79A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58A7BCA2844649768A97932C388E31BE"
             {
             "SourcePath" = "8:..\\versions.txt"
@@ -688,9 +725,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:HardlightService"
+        "ProductName" = "8:Hardlight Runtime"
         "ProductCode" = "8:{ED495204-1F2A-4FFD-86FF-287412D694D7}"
-        "PackageCode" = "8:{C4FC502D-A1C6-4C50-BC00-430B437EDF02}"
+        "PackageCode" = "8:{48F4699D-3197-4764-A342-CBEBFA0FC496}"
         "UpgradeCode" = "8:{C3506E5B-412D-484B-B7E8-35428CDDD34E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -701,7 +738,7 @@
         "Manufacturer" = "8:NullSpace VR"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:HardlightService"
+        "Title" = "8:Hardlight Runtime"
         "Subject" = "8:"
         "ARPCONTACT" = "8:NullSpace VR"
         "Keywords" = "8:"
@@ -956,7 +993,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:The installer will guide you through the steps required to install the NullSpace Haptics Engine on your computer."
+                            "Value" = "8:The installer will guide you through the steps required to install the Hardlight Runtime and associated GUI on your computer."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -1092,7 +1129,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:The installer will guide you through the steps required to install the NullSpace Haptics Engine on your computer."
+                            "Value" = "8:The installer will guide you through the steps required to install the Hardlight Runtime and associated GUI on your computer."
                             "DefaultValue" = "8:#1203"
                             "UsePlugInResources" = "11:TRUE"
                             }
