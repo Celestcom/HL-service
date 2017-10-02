@@ -122,46 +122,6 @@ namespace NSVRGui
 
 
 
-			Interop.AreaFlag[] order = {
-				Interop.AreaFlag.Forearm_Left,
-				Interop.AreaFlag.Upper_Arm_Left,
-				Interop.AreaFlag.Shoulder_Left,
-				Interop.AreaFlag.Back_Left,
-
-				Interop.AreaFlag.Chest_Left,
-				Interop.AreaFlag.Upper_Ab_Left,
-				Interop.AreaFlag.Mid_Ab_Left,
-				Interop.AreaFlag.Lower_Ab_Left,
-
-				Interop.AreaFlag.Lower_Ab_Right,
-				Interop.AreaFlag.Mid_Ab_Right,
-				Interop.AreaFlag.Upper_Ab_Right,
-				Interop.AreaFlag.Chest_Right,
-
-				Interop.AreaFlag.Back_Right,
-				Interop.AreaFlag.Shoulder_Right,
-				Interop.AreaFlag.Upper_Arm_Right,
-				Interop.AreaFlag.Forearm_Right
-
-			};
-			Interop.NSVR_Timeline_Create(ref _testRoutineTimeline);
-			float offset = 0.0f;
-			//foreach (var flag in order)
-			//{
-			//	IntPtr myEvent = IntPtr.Zero;
-			//	Interop.NSVR_Event_Create(ref myEvent, Interop.NSVR_EventType.Basic_Haptic_Event);
-
-			//	Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
-			//	Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
-			//	Interop.NSVR_Event_SetUInt32s(myEvent, "area", (int)flag);
-			//	Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
-			//	Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
-			//	Interop.NSVR_Timeline_AddEvent(_testEffectData, myEvent);
-
-			//	Interop.NSVR_Event_Release(ref myEvent);
-			//	offset += 0.1f;
-			//}
-
 
 
 
@@ -195,7 +155,7 @@ namespace NSVRGui
 			
 			StartService(null, null);
 			_hapticsDelay = new Timer();
-			_hapticsDelay.Interval = 500;
+			_hapticsDelay.Interval = 1000;
 			_hapticsDelay.Tick += DelayWhilePluginInitializes_Tick;
 
 		}
@@ -227,6 +187,19 @@ namespace NSVRGui
 			return newDevices;
 		}
 
+		private List<UInt32> fetchAllNodes()
+		{
+			List<UInt32> nodes = new List<uint>();
+			Interop.NSVR_NodeInfo_Iter iter = new Interop.NSVR_NodeInfo_Iter();
+			Interop.NSVR_NodeInfo_Iter_Init(ref iter);
+
+			while (Interop.NSVR_NodeInfo_Iter_Next(ref iter, 0, _pluginPtr))
+			{
+				nodes.Add(iter.NodeInfo.Id);
+			}
+
+			return nodes;
+		}
 		private void removeUnrecognizedDevicesFromMenu(Dictionary<string, Interop.NSVR_DeviceInfo> newDevices)
 		{
 			foreach (var device in _cachedDevices)
@@ -345,10 +318,31 @@ namespace NSVRGui
 
 		private void CreateAndPlayHaptic()
 		{
+			var nodes = fetchAllNodes();
+			float timeOffset = 0.15f;
+			IntPtr timeline = IntPtr.Zero;
+			Interop.NSVR_Timeline_Create(ref timeline);
+
+			for (int i = 0; i < nodes.Count; i++)
+			{
+				UInt32[] singleLoc = new UInt32[1] { nodes[i] };
+				IntPtr haptic = IntPtr.Zero;
+				Interop.NSVR_Event_Create(ref haptic, Interop.NSVR_EventType.Basic_Haptic_Event);
+				Interop.NSVR_Event_SetFloat(haptic, Interop.NSVR_EventKey.Time_Float, timeOffset * i);
+				Interop.NSVR_Event_SetUInt32s(haptic, Interop.NSVR_EventKey.SimpleHaptic_Nodes_UInt32s, singleLoc, 1);
+				Interop.NSVR_Event_SetInt(haptic, Interop.NSVR_EventKey.SimpleHaptic_Effect_Int, (int) Interop.NSVR_Effect.Click);
+
+				Interop.NSVR_Timeline_AddEvent(timeline, haptic);
+				Interop.NSVR_Event_Release(ref haptic);
+				
+			}
+
+
 			IntPtr playbackHandle = IntPtr.Zero;
 			Interop.NSVR_PlaybackHandle_Create(ref playbackHandle);
 
-			Interop.NSVR_Timeline_Transmit( _testRoutineTimeline, _pluginPtr, playbackHandle);
+			Interop.NSVR_Timeline_Transmit(timeline, _pluginPtr, playbackHandle);
+			Interop.NSVR_Timeline_Release(ref timeline);
 			Interop.NSVR_PlaybackHandle_Command(playbackHandle, Interop.NSVR_PlaybackCommand.Play);
 			Interop.NSVR_PlaybackHandle_Release(ref playbackHandle);
 

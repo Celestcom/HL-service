@@ -84,7 +84,7 @@ namespace NSVRGui
 			Sword
 		}
 
-		[StructLayout(LayoutKind.Sequential, Pack = 1)]
+		//[StructLayout(LayoutKind.Sequential, Pack = 1)]
 		public struct NSVR_DeviceInfo
 		{
 			public UInt32 Id;
@@ -94,13 +94,48 @@ namespace NSVRGui
 			public NSVR_DeviceStatus Status;
 		};
 
+		public enum NSVR_NodeType
+		{
+			Unknown = 0,
+			Haptic,
+			LED,
+			InertialTracker,
+			AbsoluteTracker
+		}
 
+		public struct NSVR_NodeInfo
+		{
+			public UInt32 Id;
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
+			public char[] Name;
+			public NSVR_NodeType Type;
+
+		}
 		public struct NSVR_DeviceInfo_Iter
 		{
 			public IntPtr _internal;
 			public NSVR_DeviceInfo DeviceInfo;
 		}
+		public struct NSVR_NodeInfo_Iter
+		{
+			public IntPtr _internal;
+			public NSVR_NodeInfo NodeInfo;
+		}
 
+		public enum NSVR_EventKey
+		{
+			Invalid = 0,
+			Time_Float,
+
+			SimpleHaptic_Duration_Float = 1000,
+			SimpleHaptic_Strength_Float,
+			SimpleHaptic_Effect_Int,
+			SimpleHaptic_Regions_UInt32s,
+			SimpleHaptic_Nodes_UInt32s,
+
+			Max = 2147483647
+
+		}
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Create(ref IntPtr systemPtr);
@@ -137,6 +172,12 @@ namespace NSVRGui
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern bool NSVR_DeviceInfo_Iter_Next(ref NSVR_DeviceInfo_Iter iter, IntPtr system);
 
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int NSVR_NodeInfo_Iter_Init(ref NSVR_NodeInfo_Iter iter);
+
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern bool NSVR_NodeInfo_Iter_Next(ref NSVR_NodeInfo_Iter iter, UInt32 device_id, IntPtr system);
+
 		/* Tracking */
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int NSVR_System_Tracking_Poll(IntPtr ptr, ref NSVR_TrackingUpdate updatePtr);
@@ -157,13 +198,13 @@ namespace NSVRGui
 		public static extern void NSVR_Event_Release(ref IntPtr eventPtr);
 
 		[DllImport("Hardlight.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int NSVR_Event_SetFloat(IntPtr eventPtr, string key, float value);
+		public static extern int NSVR_Event_SetFloat(IntPtr eventPtr, NSVR_EventKey key, float value);
 
 		[DllImport("Hardlight.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int NSVR_Event_SetInteger(IntPtr eventPtr, string key, int value);
+		public static extern int NSVR_Event_SetInt(IntPtr eventPtr, NSVR_EventKey key, int value);
 
 		[DllImport("Hardlight.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int NSVR_Event_SetUInt32s(IntPtr eventPtr, string key, [In, Out] UInt32[] values, uint length);
+		public static extern int NSVR_Event_SetUInt32s(IntPtr eventPtr, NSVR_EventKey key, [In, Out] UInt32[] values, uint length);
 
 		/* Timelines */
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
