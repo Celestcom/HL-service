@@ -7,23 +7,23 @@ namespace NSVRService
 	{
 
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IntPtr NSVR_Driver_Create();
+		public static extern int hvr_platform_create(ref IntPtr ptr);
 
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void NSVR_Driver_Destroy(IntPtr ptr);
+		public static extern void hvr_platform_destroy(ref IntPtr ptr);
 
 	
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern bool NSVR_Driver_Shutdown(IntPtr ptr);
+		public static extern int hvr_platform_shutdown(IntPtr ptr);
 
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void NSVR_Driver_StartThread(IntPtr ptr);
+		public static extern int hvr_platform_startup(IntPtr ptr);
 
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern uint NSVR_Driver_GetVersion(IntPtr ptr);
+		public static extern uint hvr_platform_getversion(IntPtr ptr);
 
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int NSVR_Driver_IsCompatibleDLL(IntPtr ptr);
+		public static extern bool hvr_platform_isdllcompatible(IntPtr ptr);
 
 	}
 }

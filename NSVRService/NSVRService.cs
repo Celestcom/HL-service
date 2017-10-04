@@ -23,21 +23,17 @@ namespace NSVRService
 		
 		protected override void OnStart(string[] args)
 		{
-
-			_ptr = Interop.NSVR_Driver_Create();
-			Interop.NSVR_Driver_StartThread(_ptr);
-
+			Interop.hvr_platform_create(ref _ptr);
+			Interop.hvr_platform_startup(_ptr);
 		}
 		
 	
 		protected override void OnStop()
 		{
-	
-			Interop.NSVR_Driver_Shutdown(_ptr);
-			Thread.Sleep(500);
-			Interop.NSVR_Driver_Destroy(_ptr);
 
-			
+			Interop.hvr_platform_shutdown(_ptr);
+			Thread.Sleep(500);
+			Interop.hvr_platform_destroy(ref _ptr);			
 		}
 	}
 }
