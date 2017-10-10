@@ -50,7 +50,7 @@ namespace NSVRGui
 		/// <summary>
 		/// Raw pointer to our Hardlight.dll instance, used to interact with the system
 		/// </summary>
-		private IntPtr _pluginPtr;
+		private unsafe Interop.HLVR_System* _pluginPtr;
  
 		/// <summary>
 		/// How long we delay before playing the test routine. This is needed because
@@ -62,7 +62,7 @@ namespace NSVRGui
 		/// <summary>
 		/// Our cached list of devices present in the system. Key is the device name.
 		/// </summary>
-		private Dictionary<string, Interop.NSVR_DeviceInfo> _cachedDevices;
+		private Dictionary<string, Interop.HLVR_DeviceInfo> _cachedDevices;
 
 		/// <summary>
 		/// Cached service version information, used to display in the Version Info window.
@@ -80,9 +80,8 @@ namespace NSVRGui
 		private bool _disposed = false;
 
 		/// <summary>
-		/// Holds NSVR_Timeline used in the test routine
+		/// Holds HLVR_Timeline used in the test routine
 		/// </summary>
-		private IntPtr _testRoutineTimeline;
 
 		override protected void Dispose(bool disposing)
 		{
@@ -92,8 +91,13 @@ namespace NSVRGui
 			}
 			if (disposing)
 			{
-				Interop.NSVR_Timeline_Release(ref _testRoutineTimeline);
-				Interop.NSVR_System_Release(ref _pluginPtr);
+				unsafe
+				{
+					fixed (Interop.HLVR_System** ptr = &_pluginPtr)
+					{
+						Interop.HLVR_System_Destroy(ptr);
+					}
+				}
 			}
 			_disposed = true;
 			base.Dispose(disposing);
@@ -106,24 +110,21 @@ namespace NSVRGui
 
 		public MyCustomApplicationContext()
 		{
-
-			_pluginPtr = IntPtr.Zero;
-
-			if (Interop.NSVR_FAILURE(Interop.NSVR_System_Create(ref _pluginPtr)))
+			unsafe
 			{
-				MessageBox.Show("Failed to create the Hardlight plugin! Application will now exit.", "Hardlight Service", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Exit();
+				fixed (Interop.HLVR_System** ptr = &_pluginPtr)
+				{
+					if (Interop.FAIL(Interop.HLVR_System_Create(ptr)))
+					{
+						MessageBox.Show("Failed to create the Hardlight plugin! Application will now exit.", "Hardlight Service", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Exit();
+					}
+				}
 			}
-
-
+	
 			_cachedServiceVersion = new ServiceVersion();
-			_cachedDevices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
+			_cachedDevices = new Dictionary<string, Interop.HLVR_DeviceInfo>();
 			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
-
-
-
-
-
 
 
 			_serviceController = new ServiceController();
@@ -159,27 +160,27 @@ namespace NSVRGui
 			_hapticsDelay.Tick += DelayWhilePluginInitializes_Tick;
 
 		}
-		private bool isServiceActuallyConnected()
+		private unsafe bool isServiceActuallyConnected()
 		{
-			Interop.NSVR_ServiceInfo serviceInfo = new Interop.NSVR_ServiceInfo();
+			Interop.HLVR_PlatformInfo serviceInfo = new Interop.HLVR_PlatformInfo();
 
-			if (Interop.NSVR_SUCCESS(Interop.NSVR_System_GetServiceInfo(_pluginPtr, ref serviceInfo)))
+			if (Interop.OK(Interop.HLVR_System_GetPlatformInfo(_pluginPtr, ref serviceInfo)))
 			{
-				_cachedServiceVersion.Major = serviceInfo.ServiceMajor;
-				_cachedServiceVersion.Minor = serviceInfo.ServiceMinor;
+				_cachedServiceVersion.Major = serviceInfo.MajorVersion;
+				_cachedServiceVersion.Minor = serviceInfo.MinorVersion;
 				return true;
 			}
 
 			return false;
 		}
 
-		private Dictionary<string, Interop.NSVR_DeviceInfo> fetchKnownDevices()
+		private unsafe Dictionary<string, Interop.HLVR_DeviceInfo> fetchKnownDevices()
 		{
-			Interop.NSVR_DeviceInfo_Iter iter = new Interop.NSVR_DeviceInfo_Iter();
-			Interop.NSVR_DeviceInfo_Iter_Init(ref iter);
+			Interop.HLVR_DeviceIterator iter = new Interop.HLVR_DeviceIterator();
+			Interop.HLVR_DeviceIterator_Init(ref iter);
 
-			var newDevices = new Dictionary<string, Interop.NSVR_DeviceInfo>();
-			while (Interop.NSVR_DeviceInfo_Iter_Next(ref iter, _pluginPtr))
+			var newDevices = new Dictionary<string, Interop.HLVR_DeviceInfo>();
+			while (Interop.OK(Interop.HLVR_DeviceIterator_Next(ref iter, _pluginPtr)))
 			{
 				newDevices.Add(new string(iter.DeviceInfo.Name), iter.DeviceInfo);
 			}
@@ -187,20 +188,20 @@ namespace NSVRGui
 			return newDevices;
 		}
 
-		private List<UInt32> fetchAllNodes()
+		private unsafe List<UInt32> fetchAllNodes()
 		{
 			List<UInt32> nodes = new List<uint>();
-			Interop.NSVR_NodeInfo_Iter iter = new Interop.NSVR_NodeInfo_Iter();
-			Interop.NSVR_NodeInfo_Iter_Init(ref iter);
+			Interop.HLVR_NodeIterator iter = new Interop.HLVR_NodeIterator();
+			Interop.HLVR_NodeIterator_Init(ref iter);
 
-			while (Interop.NSVR_NodeInfo_Iter_Next(ref iter, 0, _pluginPtr))
+			while (Interop.OK(Interop.HLVR_NodeIterator_Next(ref iter, 0, _pluginPtr)))
 			{
 				nodes.Add(iter.NodeInfo.Id);
 			}
 
 			return nodes;
 		}
-		private void removeUnrecognizedDevicesFromMenu(Dictionary<string, Interop.NSVR_DeviceInfo> newDevices)
+		private void removeUnrecognizedDevicesFromMenu(Dictionary<string, Interop.HLVR_DeviceInfo> newDevices)
 		{
 			foreach (var device in _cachedDevices)
 			{
@@ -211,7 +212,7 @@ namespace NSVRGui
 			}
 		}
 
-		private void addRecognizedDevicesToMenu(Dictionary<string, Interop.NSVR_DeviceInfo> newDevices)
+		private void addRecognizedDevicesToMenu(Dictionary<string, Interop.HLVR_DeviceInfo> newDevices)
 		{
 			foreach (var device in newDevices)
 			{
@@ -245,7 +246,7 @@ namespace NSVRGui
 
 					_cachedDevices = newDevices;
 
-					bool anythingConnected = _cachedDevices.Any(kvp => kvp.Value.Status == Interop.NSVR_DeviceStatus.Connected);
+					bool anythingConnected = _cachedDevices.Any(kvp => kvp.Value.Status == Interop.HLVR_DeviceStatus.Connected);
 
 					_trayIcon.Icon = anythingConnected? 
 							Properties.Resources.TrayIconServiceOnSuitConnected :
@@ -316,36 +317,33 @@ namespace NSVRGui
 			}
 		}
 
-		private void CreateAndPlayHaptic()
+		private unsafe void CreateAndPlayHaptic()
 		{
 			var nodes = fetchAllNodes();
 			float timeOffset = 0.15f;
-			IntPtr timeline = IntPtr.Zero;
-			Interop.NSVR_Timeline_Create(ref timeline);
+			Interop.HLVR_Timeline* timeline = null;
+			Interop.HLVR_Timeline_Create(&timeline);
 
 			for (int i = 0; i < nodes.Count; i++)
 			{
 				UInt32[] singleLoc = new UInt32[1] { nodes[i] };
-				IntPtr haptic = IntPtr.Zero;
-				Interop.NSVR_Event_Create(ref haptic, Interop.NSVR_EventType.Basic_Haptic_Event);
-				Interop.NSVR_Event_SetFloat(haptic, Interop.NSVR_EventKey.Time_Float, timeOffset * i);
-				Interop.NSVR_Event_SetUInt32s(haptic, Interop.NSVR_EventKey.SimpleHaptic_Nodes_UInt32s, singleLoc, 1);
-				Interop.NSVR_Event_SetInt(haptic, Interop.NSVR_EventKey.SimpleHaptic_Effect_Int, (int) Interop.NSVR_Effect.Click);
-
-				Interop.NSVR_Timeline_AddEvent(timeline, haptic);
-				Interop.NSVR_Event_Release(ref haptic);
-				
+				Interop.HLVR_EventData* haptic = null;
+				Interop.HLVR_EventData_Create(&haptic);
+				Interop.HLVR_EventData_SetUInt32s(haptic, Interop.HLVR_EventKey.SimpleHaptic_Nodes_UInt32s, singleLoc, 1);
+				Interop.HLVR_EventData_SetInt(haptic, Interop.HLVR_EventKey.SimpleHaptic_Effect_Int, (int)Interop.HLVR_Waveform.Click);
+				Interop.HLVR_Timeline_AddEvent(timeline, timeOffset * i, haptic, Interop.HLVR_EventType.SimpleHaptic);
+				Interop.HLVR_EventData_Destroy(&haptic);
 			}
 
 
-			IntPtr playbackHandle = IntPtr.Zero;
-			Interop.NSVR_PlaybackHandle_Create(ref playbackHandle);
+			Interop.HLVR_Effect* effect = null;
+			Interop.HLVR_Effect_Create(&effect);
 
-			Interop.NSVR_Timeline_Transmit(timeline, _pluginPtr, playbackHandle);
-			Interop.NSVR_Timeline_Release(ref timeline);
-			Interop.NSVR_PlaybackHandle_Command(playbackHandle, Interop.NSVR_PlaybackCommand.Play);
-			Interop.NSVR_PlaybackHandle_Release(ref playbackHandle);
+			Interop.HLVR_Timeline_Transmit(timeline, _pluginPtr, effect);
+			Interop.HLVR_Effect_Play(effect);
 
+			Interop.HLVR_Timeline_Destroy(&timeline);
+			Interop.HLVR_Effect_Destroy(&effect);
 		}
 
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
