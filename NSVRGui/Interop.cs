@@ -172,133 +172,133 @@ namespace NSVRGui
 		};
 
 		/* Agent functions */
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_Create(HLVR_System** agent);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe void HLVR_System_Destroy(HLVR_System** agent);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static unsafe extern int HLVR_System_SuspendEffects(HLVR_System* agent);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_ResumeEffects(HLVR_System* agent);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_CancelEffects(HLVR_System* agent);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_GetPlatformInfo(HLVR_System* agent, ref HLVR_PlatformInfo infoPtr);
 
 
 		/* Versioning */
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern uint HLVR_Version_Get();
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_Version_IsCompatibleDLL();
 
 
 		/* Device enumeration */
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_DeviceIterator_Init(ref HLVR_DeviceIterator iter);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_DeviceIterator_Next(ref HLVR_DeviceIterator iter, HLVR_System* system);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_NodeIterator_Init(ref HLVR_NodeIterator iter);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_NodeIterator_Next(ref HLVR_NodeIterator iter, UInt32 deviceId, HLVR_System* system);
 
 		/* Events */
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_EventData_Create(HLVR_EventData** eventData);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe void HLVR_EventData_Destroy(HLVR_EventData** eventData);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_EventData_SetFloat(HLVR_EventData* eventData, HLVR_EventKey key, float value);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_EventData_SetInt(HLVR_EventData* eventData, HLVR_EventKey key, int value);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_EventData_SetUInt32s(HLVR_EventData* eventData, HLVR_EventKey key, [In, Out] UInt32[] values, uint length);
 
 		/* Timelines */
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Timeline_Create(HLVR_Timeline** timeline);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe void HLVR_Timeline_Destroy(HLVR_Timeline** timeline);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Timeline_AddEvent(HLVR_Timeline* timeline, float timeOffsetSeconds, HLVR_EventData* data, HLVR_EventType eventType);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Timeline_Transmit(HLVR_Timeline* timeline, HLVR_System* agent, HLVR_Effect* effect);
 
 		/* Playback */
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_Create(HLVR_Effect** effect);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe void HLVR_Effect_Destroy(HLVR_Effect** effect);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_Play(HLVR_Effect* effect);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_Pause(HLVR_Effect* effect);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_Reset(HLVR_Effect* effect);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_GetInfo(HLVR_Effect* effect, ref HLVR_EffectInfo info);
 
 
 		/* Experimental APIs */
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Immediate_Set(HLVR_System* agent, [In, Out] UInt16[] intensities, [In, Out] UInt32[] areas, int length);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_Create(ref IntPtr body);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_Release(ref IntPtr body);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_BodyView_Poll(IntPtr body, HLVR_System* system);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_GetNodeCount(IntPtr body, ref UInt32 outNodeCount);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_GetNodeType(IntPtr body, UInt32 nodeIndex, ref UInt32 outType);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_GetNodeRegion(IntPtr body, UInt32 nodeIndex, ref UInt32 outRegion);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_GetIntensity(IntPtr body, UInt32 nodeIndex, ref float outIntensity);
 
 
 
 		/* Tracking */
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_PollTracking(HLVR_System* agent, ref HLVR_TrackingUpdate updatePtr);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_EnableTracking(HLVR_System* ptr);
 
-		[DllImport("Hardlight", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_DisableTracking(HLVR_System* ptr);
 
 
