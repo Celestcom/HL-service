@@ -62,7 +62,7 @@ namespace NSVRGui
 		/// <summary>
 		/// Our cached list of devices present in the system. Key is the device name.
 		/// </summary>
-		private Dictionary<string, Interop.HLVR_DeviceInfo> _cachedDevices;
+		private Dictionary<uint, Interop.HLVR_DeviceInfo> _cachedDevices;
 
 		/// <summary>
 		/// Cached service version information, used to display in the Version Info window.
@@ -123,7 +123,7 @@ namespace NSVRGui
 			}
 	
 			_cachedServiceVersion = new ServiceVersion();
-			_cachedDevices = new Dictionary<string, Interop.HLVR_DeviceInfo>();
+			_cachedDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
 			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
 
 
@@ -154,7 +154,6 @@ namespace NSVRGui
 			_checkStatusTimer.Start();
 
 			
-			StartService(null, null);
 			_hapticsDelay = new Timer();
 			_hapticsDelay.Interval = 1000;
 			_hapticsDelay.Tick += DelayWhilePluginInitializes_Tick;
@@ -162,9 +161,9 @@ namespace NSVRGui
 		}
 		private unsafe bool isServiceActuallyConnected()
 		{
-			Interop.HLVR_PlatformInfo serviceInfo = new Interop.HLVR_PlatformInfo();
+			Interop.HLVR_RuntimeInfo serviceInfo = new Interop.HLVR_RuntimeInfo();
 
-			if (Interop.OK(Interop.HLVR_System_GetPlatformInfo(_pluginPtr, ref serviceInfo)))
+			if (Interop.OK(Interop.HLVR_System_GetRuntimeInfo(_pluginPtr, ref serviceInfo)))
 			{
 				_cachedServiceVersion.Major = serviceInfo.MajorVersion;
 				_cachedServiceVersion.Minor = serviceInfo.MinorVersion;
@@ -174,91 +173,120 @@ namespace NSVRGui
 			return false;
 		}
 
-		private unsafe Dictionary<string, Interop.HLVR_DeviceInfo> fetchKnownDevices()
+		private unsafe Dictionary<uint, Interop.HLVR_DeviceInfo> fetchKnownDevices()
 		{
 			Interop.HLVR_DeviceIterator iter = new Interop.HLVR_DeviceIterator();
 			Interop.HLVR_DeviceIterator_Init(ref iter);
 
-			var newDevices = new Dictionary<string, Interop.HLVR_DeviceInfo>();
+			var newDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
 			while (Interop.OK(Interop.HLVR_DeviceIterator_Next(ref iter, _pluginPtr)))
 			{
-				newDevices.Add(new string(iter.DeviceInfo.Name), iter.DeviceInfo);
+				newDevices.Add(iter.DeviceInfo.Id, iter.DeviceInfo);
 			}
 
 			return newDevices;
 		}
 
-		private unsafe List<UInt32> fetchAllNodes()
+		private unsafe List<UInt32> fetchAllNodes(UInt32 device_id)
 		{
 			List<UInt32> nodes = new List<uint>();
 			Interop.HLVR_NodeIterator iter = new Interop.HLVR_NodeIterator();
 			Interop.HLVR_NodeIterator_Init(ref iter);
 
-			while (Interop.OK(Interop.HLVR_NodeIterator_Next(ref iter, 0, _pluginPtr)))
+			while (Interop.OK(Interop.HLVR_NodeIterator_Next(ref iter, device_id, _pluginPtr)))
 			{
 				nodes.Add(iter.NodeInfo.Id);
 			}
 
 			return nodes;
 		}
-		private void removeUnrecognizedDevicesFromMenu(Dictionary<string, Interop.HLVR_DeviceInfo> newDevices)
+
+		private void forgetAllDevices()
+		{
+			_deviceMenuList.MenuItems.Clear();
+			_cachedDevices.Clear();
+		}
+		private void removeUnrecognizedDevicesFromMenu(Dictionary<uint, Interop.HLVR_DeviceInfo> newDevices)
 		{
 			foreach (var device in _cachedDevices)
 			{
 				if (!newDevices.ContainsKey(device.Key))
 				{
-					_deviceMenuList.MenuItems.RemoveByKey(device.Key);
+					string menuKey = deviceToStringKey(device.Value);
+
+					_deviceMenuList.MenuItems.RemoveByKey(menuKey);
 				}
 			}
 		}
+		private string deviceToStringKey(Interop.HLVR_DeviceInfo device)
+		{
+			return string.Format("{0} [{1}]", new string(device.Name), device.Id);
+		}
 
-		private void addRecognizedDevicesToMenu(Dictionary<string, Interop.HLVR_DeviceInfo> newDevices)
+		private void addRecognizedDevicesToMenu(Dictionary<uint, Interop.HLVR_DeviceInfo> newDevices)
 		{
 			foreach (var device in newDevices)
 			{
 				if (!_cachedDevices.ContainsKey(device.Key))
 				{
-					MenuItem a = new MenuItem(device.Key);
-					a.Name = device.Key;
+					string menuKey = deviceToStringKey(device.Value);
+					MenuItem a = new MenuItem(menuKey);
+					a.Name = menuKey;
+					a.Click += (object sender, EventArgs e) => {
+						CreateAndPlayHaptic(device.Value.Id);
+
+					};
 					_deviceMenuList.MenuItems.Add(a);
 				}
 			}
 		}
+
+		
+
 		private void CheckStatusSuit(object sender, EventArgs args)
 		{
-			_serviceController.Refresh();
-
-			try
+			if (!isServiceActuallyConnected())
 			{
-				var serviceStatus = _serviceController.Status;
+				//_serviceController.Refresh();
+				//try
+				//{
+				//	var serviceStatus = _serviceController.Status;
 
-				if (serviceStatus != ServiceControllerStatus.Running)
-				{
-					_trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
-					return;
-				}
-
-				if (isServiceActuallyConnected())
-				{
-					var newDevices = fetchKnownDevices();
-					removeUnrecognizedDevicesFromMenu(newDevices);
-					addRecognizedDevicesToMenu(newDevices);
-
-					_cachedDevices = newDevices;
-
-					bool anythingConnected = _cachedDevices.Any(kvp => kvp.Value.Status == Interop.HLVR_DeviceStatus.Connected);
-
-					_trayIcon.Icon = anythingConnected? 
-							Properties.Resources.TrayIconServiceOnSuitConnected :
-							Properties.Resources.TrayIconServiceOn;
-				}
-			}
-			catch (System.InvalidOperationException e)
+				//	if (serviceStatus != ServiceControllerStatus.Running)
+				//	{
+				//		StartService(null, null);
+				//		return;
+				//	}
+				//}
+				//catch (System.InvalidOperationException)
+				//{
+				//	//Perhaps the service was uninstalled..?
+				//	_trayIcon.Visible = false;
+				//	Exit();
+				//}
+				_trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
+				forgetAllDevices();
+			} else
 			{
-				//Perhaps the service was uninstalled..?
-				_trayIcon.Visible = false;
-				Exit();
+				
+				var newDevices = fetchKnownDevices();
+				removeUnrecognizedDevicesFromMenu(newDevices);
+				addRecognizedDevicesToMenu(newDevices);
+
+				_cachedDevices = newDevices;
+
+				bool anythingConnected = _cachedDevices.Any(kvp => kvp.Value.Status == Interop.HLVR_DeviceStatus.Connected);
+
+
+				_trayIcon.Icon = anythingConnected ?
+						Properties.Resources.TrayIconServiceOnSuitConnected :
+						Properties.Resources.TrayIconServiceOn;
+			
 			}
+
+
+
+			
 		}
 
 		void StartService(object sender, EventArgs e)
@@ -305,6 +333,8 @@ namespace NSVRGui
 			}
 		}
 
+
+
 		void TestSuit(object sender, EventArgs e)
 		{
 			if (_serviceController.Status != ServiceControllerStatus.Running)
@@ -313,13 +343,13 @@ namespace NSVRGui
 				_hapticsDelay.Start();
 			} else
 			{
-				CreateAndPlayHaptic();
+				CreateAndPlayHaptic(0);
 			}
 		}
 
-		private unsafe void CreateAndPlayHaptic()
+		private unsafe void CreateAndPlayHaptic(UInt32 deviceId)
 		{
-			var nodes = fetchAllNodes();
+			var nodes = fetchAllNodes(deviceId);
 			float timeOffset = 0.15f;
 			Interop.HLVR_Timeline* timeline = null;
 			Interop.HLVR_Timeline_Create(&timeline);
@@ -327,12 +357,12 @@ namespace NSVRGui
 			for (int i = 0; i < nodes.Count; i++)
 			{
 				UInt32[] singleLoc = new UInt32[1] { nodes[i] };
-				Interop.HLVR_EventData* haptic = null;
-				Interop.HLVR_EventData_Create(&haptic);
-				Interop.HLVR_EventData_SetUInt32s(haptic, Interop.HLVR_EventKey.SimpleHaptic_Nodes_UInt32s, singleLoc, 1);
-				Interop.HLVR_EventData_SetInt(haptic, Interop.HLVR_EventKey.SimpleHaptic_Effect_Int, (int)Interop.HLVR_Waveform.Click);
-				Interop.HLVR_Timeline_AddEvent(timeline, timeOffset * i, haptic, Interop.HLVR_EventType.SimpleHaptic);
-				Interop.HLVR_EventData_Destroy(&haptic);
+				Interop.HLVR_Event* haptic = null;
+				Interop.HLVR_Event_Create(&haptic, Interop.HLVR_EventType.DiscreteHaptic);
+				Interop.HLVR_Event_SetUInt32s(haptic, Interop.HLVR_EventKey.Target_Nodes_UInt32s, singleLoc, 1);
+				Interop.HLVR_Event_SetInt(haptic, Interop.HLVR_EventKey.DiscreteHaptic_Waveform_Int, (int)Interop.HLVR_Waveform.Click);
+				Interop.HLVR_Timeline_AddEvent(timeline, timeOffset * i, haptic);
+				Interop.HLVR_Event_Destroy(&haptic);
 			}
 
 
@@ -348,7 +378,7 @@ namespace NSVRGui
 
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
 		{
-			CreateAndPlayHaptic();
+			CreateAndPlayHaptic(0);
 			_hapticsDelay.Stop();
 		}
 
@@ -366,5 +396,11 @@ namespace NSVRGui
 			StopService(null, null);
 			Application.Exit();
 		}
+
+		private void TestDevice(UInt32 id)
+		{
+			throw new NotImplementedException();
+		}
+
 	}
 }
