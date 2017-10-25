@@ -16,12 +16,12 @@ namespace NSVRGui
 		private Label serviceVersion;
 		private Label chimeraVersion;
 		private string installPath;
-		public VersionInfo()
+		public VersionInfo(ServiceVersion version)
 		{
 			InitializeComponent();
 			serviceVersion = (Label)Controls["serviceversion"];
 			chimeraVersion = (Label)Controls["chimeraversion"];
-			serviceVersion.Text = Properties.Resources.ServiceVersion;
+			serviceVersion.Text = version.ToString();
 			chimeraVersion.Text = Properties.Resources.ChimeraVersion;
 			Rectangle r = Screen.PrimaryScreen.WorkingArea;
 			this.StartPosition = FormStartPosition.Manual;

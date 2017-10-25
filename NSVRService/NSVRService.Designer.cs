@@ -33,7 +33,7 @@
 			// 
 			// NSVRService
 			// 
-			this.ServiceName = "NullSpace VR Runtime";
+			this.ServiceName = "Hardlight VR Runtime";
 			((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
 
 		}

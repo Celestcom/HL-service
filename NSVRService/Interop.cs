@@ -6,24 +6,24 @@ namespace NSVRService
 	public static class Interop
 	{
 
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern IntPtr NSVR_Driver_Create();
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hvr_platform_create(ref IntPtr ptr);
 
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern void NSVR_Driver_Destroy(IntPtr ptr);
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern void hvr_platform_destroy(ref IntPtr ptr);
 
 	
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern bool NSVR_Driver_Shutdown(IntPtr ptr);
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hvr_platform_shutdown(IntPtr ptr);
 
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern void NSVR_Driver_StartThread(IntPtr ptr);
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hvr_platform_startup(IntPtr ptr);
 
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern uint NSVR_Driver_GetVersion(IntPtr ptr);
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern uint hvr_platform_getversion(IntPtr ptr);
 
-		[DllImport("NSVREngine.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
-		public static extern int NSVR_Driver_IsCompatibleDLL(IntPtr ptr);
+		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+		public static extern bool hvr_platform_isdllcompatible(IntPtr ptr);
 
 	}
 }

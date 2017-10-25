@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Windows.Forms;
-
+using System.Linq;
 namespace NSVRGui
 {
 
@@ -19,100 +20,128 @@ namespace NSVRGui
 		}
 	}
 
+	public class ServiceVersion
+	{
+		public uint Major;
+		public uint Minor;
+		public override string ToString()
+		{
+			return string.Format("{0}.{1}", Major, Minor);
+		}
+	}
+
 	public class MyCustomApplicationContext : ApplicationContext
 	{
+		/// <summary>
+		/// Used to periodically poll the plugin for the status of the service, and any new devices
+		/// </summary>
 		private Timer _checkStatusTimer;
-		private NotifyIcon trayIcon;
-		private ServiceController sc;
-		private IntPtr _plugin;
-		private Timer sendHapticDelayed;
-		bool disposed = false;
 
-		IntPtr _testEffectData;
+		/// <summary>
+		/// The little Hardlight icon in the tray. Can be changed to represent different states.
+		/// </summary>
+		private NotifyIcon _trayIcon;
+
+		/// <summary>
+		/// Responsible for starting and stopping the Windows Service for the Hardlight Platform
+		/// </summary>
+		private ServiceController _serviceController;
+
+		/// <summary>
+		/// Raw pointer to our Hardlight.dll instance, used to interact with the system
+		/// </summary>
+		private unsafe Interop.HLVR_System* _pluginPtr;
+ 
+		/// <summary>
+		/// How long we delay before playing the test routine. This is needed because
+		/// the plugin takes a few moments to initialize under the hood, so a test routine submitted too quickly
+		/// will not run.
+		/// </summary>
+		private Timer _hapticsDelay;
+
+		/// <summary>
+		/// Our cached list of devices present in the system. Key is the device name.
+		/// </summary>
+		private Dictionary<uint, Interop.HLVR_DeviceInfo> _cachedDevices;
+
+		/// <summary>
+		/// Cached service version information, used to display in the Version Info window.
+		/// </summary>
+		private ServiceVersion _cachedServiceVersion; 
+
+		/// <summary>
+		/// The little menu of devices when you right click on the tray icon
+		/// </summary>
+		private MenuItem _deviceMenuList;
+
+		/// <summary>
+		/// Needed for IDisposable support (because of the interop with native Hardlight.dll)
+		/// </summary>
+		private bool _disposed = false;
+
+		/// <summary>
+		/// Holds HLVR_Timeline used in the test routine
+		/// </summary>
+
 		override protected void Dispose(bool disposing)
 		{
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
 			if (disposing)
 			{
-				Interop.NSVR_Timeline_Release(ref _testEffectData);
-				Interop.NSVR_System_Release(ref _plugin);
+				unsafe
+				{
+					fixed (Interop.HLVR_System** ptr = &_pluginPtr)
+					{
+						Interop.HLVR_System_Destroy(ptr);
+					}
+				}
 			}
-			disposed = true;
+			_disposed = true;
 			base.Dispose(disposing);
 		}
+
 		~MyCustomApplicationContext()
 		{
 			Dispose(false);
 		}
+
 		public MyCustomApplicationContext()
 		{
-			if (Interop.NSVR_FAILURE(Interop.NSVR_System_Create(ref _plugin)))
+			unsafe
 			{
-				//bad news
+				fixed (Interop.HLVR_System** ptr = &_pluginPtr)
+				{
+					if (Interop.FAIL(Interop.HLVR_System_Create(ptr)))
+					{
+						MessageBox.Show("Failed to create the Hardlight plugin! Application will now exit.", "Hardlight Service", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Exit();
+					}
+				}
 			}
-
-			Interop.AreaFlag[] order = {
-				Interop.AreaFlag.Forearm_Left,
-				Interop.AreaFlag.Upper_Arm_Left,
-				Interop.AreaFlag.Shoulder_Left,
-				Interop.AreaFlag.Back_Left,
-
-				Interop.AreaFlag.Chest_Left,
-				Interop.AreaFlag.Upper_Ab_Left,
-				Interop.AreaFlag.Mid_Ab_Left,
-				Interop.AreaFlag.Lower_Ab_Left,
-
-				Interop.AreaFlag.Lower_Ab_Right,
-				Interop.AreaFlag.Mid_Ab_Right,
-				Interop.AreaFlag.Upper_Ab_Right,
-				Interop.AreaFlag.Chest_Right,
-
-				Interop.AreaFlag.Back_Right,
-				Interop.AreaFlag.Shoulder_Right,
-				Interop.AreaFlag.Upper_Arm_Right,
-				Interop.AreaFlag.Forearm_Right
-
-			};
-			Interop.NSVR_Timeline_Create(ref _testEffectData);
-			float offset = 0.0f;
-			foreach (var flag in order)
-			{
-				IntPtr myEvent = IntPtr.Zero;
-				Interop.NSVR_Event_Create(ref myEvent, Interop.NSVR_EventType.Basic_Haptic_Event);
-
-				Interop.NSVR_Event_SetFloat(myEvent, "duration", 0.0f);
-				Interop.NSVR_Event_SetFloat(myEvent, "strength", 1.0f);
-				Interop.NSVR_Event_SetInteger(myEvent, "area", (int)flag);
-				Interop.NSVR_Event_SetInteger(myEvent, "effect", (int) Interop.NSVR_Effect.Click); 
-				Interop.NSVR_Event_SetFloat(myEvent, "time", offset);
-				Interop.NSVR_Timeline_AddEvent(_testEffectData, myEvent);
-
-				Interop.NSVR_Event_Release(ref myEvent);
-				offset += 0.1f;
-			}
-
-		
+	
+			_cachedServiceVersion = new ServiceVersion();
+			_cachedDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
+			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
 
 
-
-			sc = new ServiceController();
-			sc.ServiceName = "NullSpace VR Runtime";
+			_serviceController = new ServiceController();
+			_serviceController.ServiceName = "Hardlight VR Runtime";
 
 			var myMenu = new ContextMenu(new MenuItem[] {
-					new MenuItem("Enable Suit", StartService),
-					new MenuItem("Disable Suit", StopService),
+					new MenuItem("Enable Runtime", StartService),
+					new MenuItem("Disable Runtime", StopService),
 					new MenuItem("Test Suit", TestSuit),
 					new MenuItem("Version info", VersionInfo),
+					_deviceMenuList,
+				new MenuItem("Exit", new EventHandler((object o, EventArgs e) => { Exit(); }))
+			});
 
-					new MenuItem("Exit", Exit)
-				});
-			
 		
 			// Initialize Tray Icon
-			trayIcon = new NotifyIcon()
+			_trayIcon = new NotifyIcon()
 			{
 				Icon = Properties.Resources.TrayIconServiceOff,
 				ContextMenu = myMenu,
@@ -125,139 +154,253 @@ namespace NSVRGui
 			_checkStatusTimer.Start();
 
 			
-			StartService(null, null);
-			sendHapticDelayed = new Timer();
-			sendHapticDelayed.Interval = 500;
-			sendHapticDelayed.Tick += DelayWhilePluginInitializes_Tick;
+			_hapticsDelay = new Timer();
+			_hapticsDelay.Interval = 1000;
+			_hapticsDelay.Tick += DelayWhilePluginInitializes_Tick;
 
 		}
+		private unsafe bool isServiceActuallyConnected()
+		{
+			Interop.HLVR_RuntimeInfo serviceInfo = new Interop.HLVR_RuntimeInfo();
+
+			if (Interop.OK(Interop.HLVR_System_GetRuntimeInfo(_pluginPtr, ref serviceInfo)))
+			{
+				_cachedServiceVersion.Major = serviceInfo.MajorVersion;
+				_cachedServiceVersion.Minor = serviceInfo.MinorVersion;
+				return true;
+			}
+
+			return false;
+		}
+
+		private unsafe Dictionary<uint, Interop.HLVR_DeviceInfo> fetchKnownDevices()
+		{
+			Interop.HLVR_DeviceIterator iter = new Interop.HLVR_DeviceIterator();
+			Interop.HLVR_DeviceIterator_Init(ref iter);
+
+			var newDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
+			while (Interop.OK(Interop.HLVR_DeviceIterator_Next(ref iter, _pluginPtr)))
+			{
+				newDevices.Add(iter.DeviceInfo.Id, iter.DeviceInfo);
+			}
+
+			return newDevices;
+		}
+
+		private unsafe List<UInt32> fetchAllNodes(UInt32 device_id)
+		{
+			List<UInt32> nodes = new List<uint>();
+			Interop.HLVR_NodeIterator iter = new Interop.HLVR_NodeIterator();
+			Interop.HLVR_NodeIterator_Init(ref iter);
+
+			while (Interop.OK(Interop.HLVR_NodeIterator_Next(ref iter, device_id, _pluginPtr)))
+			{
+				nodes.Add(iter.NodeInfo.Id);
+			}
+
+			return nodes;
+		}
+
+		private void forgetAllDevices()
+		{
+			_deviceMenuList.MenuItems.Clear();
+			_cachedDevices.Clear();
+		}
+		private void removeUnrecognizedDevicesFromMenu(Dictionary<uint, Interop.HLVR_DeviceInfo> newDevices)
+		{
+			foreach (var device in _cachedDevices)
+			{
+				if (!newDevices.ContainsKey(device.Key))
+				{
+					string menuKey = deviceToStringKey(device.Value);
+
+					_deviceMenuList.MenuItems.RemoveByKey(menuKey);
+				}
+			}
+		}
+		private string deviceToStringKey(Interop.HLVR_DeviceInfo device)
+		{
+			return string.Format("{0} [{1}]", new string(device.Name), device.Id);
+		}
+
+		private void addRecognizedDevicesToMenu(Dictionary<uint, Interop.HLVR_DeviceInfo> newDevices)
+		{
+			foreach (var device in newDevices)
+			{
+				if (!_cachedDevices.ContainsKey(device.Key))
+				{
+					string menuKey = deviceToStringKey(device.Value);
+					MenuItem a = new MenuItem(menuKey);
+					a.Name = menuKey;
+					a.Click += (object sender, EventArgs e) => {
+						CreateAndPlayHaptic(device.Value.Id);
+
+					};
+					_deviceMenuList.MenuItems.Add(a);
+				}
+			}
+		}
+
+		
+
 		private void CheckStatusSuit(object sender, EventArgs args)
 		{
-
-			sc.Refresh();
-
-			try
+			if (!isServiceActuallyConnected())
 			{
-				var serviceStatus = sc.Status;
-				if (serviceStatus == ServiceControllerStatus.Running)
-				{
-					Interop.NSVR_DeviceInfo deviceinfo = new Interop.NSVR_DeviceInfo();
+				//_serviceController.Refresh();
+				//try
+				//{
+				//	var serviceStatus = _serviceController.Status;
 
-					if (Interop.NSVR_SUCCESS(Interop.NSVR_System_GetDeviceInfo(_plugin, ref deviceinfo))) {
-						trayIcon.Icon = Properties.Resources.TrayIconServiceOnSuitConnected;
-					} else
-					{
-						trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
-
-					}
-				}
-				else
-				{
-					trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
-				}
-			}
-			catch (System.InvalidOperationException e)
+				//	if (serviceStatus != ServiceControllerStatus.Running)
+				//	{
+				//		StartService(null, null);
+				//		return;
+				//	}
+				//}
+				//catch (System.InvalidOperationException)
+				//{
+				//	//Perhaps the service was uninstalled..?
+				//	_trayIcon.Visible = false;
+				//	Exit();
+				//}
+				_trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
+				forgetAllDevices();
+			} else
 			{
-				//loooks like the service was uninstalled, so we should quit the app!
-				trayIcon.Visible = false;
-				Application.Exit();
+				
+				var newDevices = fetchKnownDevices();
+				removeUnrecognizedDevicesFromMenu(newDevices);
+				addRecognizedDevicesToMenu(newDevices);
+
+				_cachedDevices = newDevices;
+
+				bool anythingConnected = _cachedDevices.Any(kvp => kvp.Value.Status == Interop.HLVR_DeviceStatus.Connected);
+
+
+				_trayIcon.Icon = anythingConnected ?
+						Properties.Resources.TrayIconServiceOnSuitConnected :
+						Properties.Resources.TrayIconServiceOn;
+			
 			}
 
 
+
+			
 		}
 
 		void StartService(object sender, EventArgs e)
 		{
 	
-			if (sc.Status == ServiceControllerStatus.Stopped)
+			if (_serviceController.Status == ServiceControllerStatus.Stopped)
 			{
 				try
 				{
-					sc.Start();
-					sc.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 5));
-					trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
+					_serviceController.Start();
+					_serviceController.WaitForStatus(ServiceControllerStatus.Running, new TimeSpan(0, 0, 5));
+					_trayIcon.Icon = Properties.Resources.TrayIconServiceOn;
 
 				}
 				catch (InvalidOperationException)
 				{
-					MessageBox.Show("Could not start the NullSpace Runtime!");
+					MessageBox.Show("Could not start the Hardlight Runtime!");
 				} 
 				catch (System.ServiceProcess.TimeoutException)
 				{
-					MessageBox.Show("Took too long to start the NullSpace Runtime! Runtime is stopped.");
+					MessageBox.Show("Took too long to start the Hardlight Runtime! Runtime is stopped.");
 				}
 			}
 		}
 
 		void StopService(object sender, EventArgs e)
 		{
-			if (sc.Status == ServiceControllerStatus.Running)
+			if (_serviceController.Status == ServiceControllerStatus.Running)
 			{
 				try
 				{
-					sc.Stop();
-					sc.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0,0,5));
-					trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
+					_serviceController.Stop();
+					_serviceController.WaitForStatus(ServiceControllerStatus.Stopped, new TimeSpan(0,0,5));
+					_trayIcon.Icon = Properties.Resources.TrayIconServiceOff;
 				}
 				catch (InvalidOperationException)
 				{
-					MessageBox.Show("Could not stop the NullSpace Runtime!");
+					MessageBox.Show("Could not stop the Hardlight Runtime!");
 				}
 				catch (System.ServiceProcess.TimeoutException)
 				{
-					MessageBox.Show("Took too long to stop the NullSpace Runtime! ");
+					MessageBox.Show("Took too long to stop the Hardlight Runtime! ");
 				}
 			}
 		}
 
+
+
 		void TestSuit(object sender, EventArgs e)
 		{
-			if (sc.Status != ServiceControllerStatus.Running)
+			if (_serviceController.Status != ServiceControllerStatus.Running)
 			{
 				StartService(null, null);
-				
-				sendHapticDelayed.Start();
+				_hapticsDelay.Start();
 			} else
 			{
-				CreateAndPlayHaptic();
+				CreateAndPlayHaptic(0);
 			}
-			
-
-
 		}
-		private void CreateAndPlayHaptic()
+
+		private unsafe void CreateAndPlayHaptic(UInt32 deviceId)
 		{
-			IntPtr playbackHandle = IntPtr.Zero;
-			Interop.NSVR_PlaybackHandle_Create(ref playbackHandle);
+			var nodes = fetchAllNodes(deviceId);
+			float timeOffset = 0.15f;
+			Interop.HLVR_Timeline* timeline = null;
+			Interop.HLVR_Timeline_Create(&timeline);
 
-			Interop.NSVR_Timeline_Transmit( _testEffectData, _plugin, playbackHandle);
-			Interop.NSVR_PlaybackHandle_Command(playbackHandle, Interop.NSVR_PlaybackCommand.Play);
-			Interop.NSVR_PlaybackHandle_Release(ref playbackHandle);
+			for (int i = 0; i < nodes.Count; i++)
+			{
+				UInt32[] singleLoc = new UInt32[1] { nodes[i] };
+				Interop.HLVR_Event* haptic = null;
+				Interop.HLVR_Event_Create(&haptic, Interop.HLVR_EventType.DiscreteHaptic);
+				Interop.HLVR_Event_SetUInt32s(haptic, Interop.HLVR_EventKey.Target_Nodes_UInt32s, singleLoc, 1);
+				Interop.HLVR_Event_SetInt(haptic, Interop.HLVR_EventKey.DiscreteHaptic_Waveform_Int, (int)Interop.HLVR_Waveform.Click);
+				Interop.HLVR_Timeline_AddEvent(timeline, timeOffset * i, haptic);
+				Interop.HLVR_Event_Destroy(&haptic);
+			}
 
+
+			Interop.HLVR_Effect* effect = null;
+			Interop.HLVR_Effect_Create(&effect);
+
+			Interop.HLVR_Timeline_Transmit(timeline, _pluginPtr, effect);
+			Interop.HLVR_Effect_Play(effect);
+
+			Interop.HLVR_Timeline_Destroy(&timeline);
+			Interop.HLVR_Effect_Destroy(&effect);
 		}
+
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)
 		{
-			CreateAndPlayHaptic();
-			sendHapticDelayed.Stop();
+			CreateAndPlayHaptic(0);
+			_hapticsDelay.Stop();
 		}
 
-		void VersionInfo(object sender, EventArgs e)
+		private void VersionInfo(object sender, EventArgs e)
 		{
-			
-			VersionInfo v = new VersionInfo();
-
+			VersionInfo v = new VersionInfo(this._cachedServiceVersion);
 			v.Show();
-			
-
 		}
-		void Exit(object sender, EventArgs e)
+		private void Exit()
 		{
 			_checkStatusTimer.Stop();
 			
 			// Hide tray icon, otherwise it will remain shown until user mouses over it
-			trayIcon.Visible = false;
+			_trayIcon.Visible = false;
 			StopService(null, null);
 			Application.Exit();
 		}
+
+		private void TestDevice(UInt32 id)
+		{
+			throw new NotImplementedException();
+		}
+
 	}
 }
