@@ -79,6 +79,9 @@ namespace NSVRGui
 			BufferedHaptic_Samples_Floats = 3000,
 			BufferedHaptic_Frequency_Float,
 
+			BeginAnalogAudio_Reserved = 4000,
+			EndAnalogAudio_Reserved = 5000
+
 
 		}
 
@@ -87,6 +90,8 @@ namespace NSVRGui
 		{
 			Unknown = 0,
 			DiscreteHaptic = 1,
+			BeginAnalogAudio = 4,
+			EndAnalogAudio = 5
 		};
 
 
@@ -229,6 +234,7 @@ namespace NSVRGui
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Event_SetUInt32s(HLVR_Event* eventData, HLVR_EventKey key, [In, Out] UInt32[] values, uint length);
 
+
 		/* Timelines */
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Timeline_Create(HLVR_Timeline** timeline);
@@ -288,15 +294,18 @@ namespace NSVRGui
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_GetIntensity(IntPtr body, UInt32 nodeIndex, ref float outIntensity);
 
+		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern unsafe int HLVR_System_StreamEvent(HLVR_System* system, HLVR_Event* eventData);
+
 		/* Tracking */
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_PollTracking(HLVR_System* agent, ref HLVR_TrackingUpdate updatePtr);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_EnableTracking(HLVR_System* ptr);
+		public static extern unsafe int HLVR_System_EnableTracking(HLVR_System* ptr, UInt32 deviceId);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_DisableTracking(HLVR_System* ptr);
+		public static extern unsafe int HLVR_System_DisableTracking(HLVR_System* ptr, UInt32 deviceId);
 
 
 		public enum AreaFlag

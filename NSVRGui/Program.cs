@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using System.Linq;
+using System.Diagnostics;
+using System.IO;
+
 namespace NSVRGui
 {
 
@@ -74,14 +77,17 @@ namespace NSVRGui
 		/// </summary>
 		private MenuItem _deviceMenuList;
 
+		private MenuItem _updateMenu;
+
+
+		private MenuItem _audioMenu;
+
 		/// <summary>
 		/// Needed for IDisposable support (because of the interop with native Hardlight.dll)
 		/// </summary>
 		private bool _disposed = false;
 
-		/// <summary>
-		/// Holds HLVR_Timeline used in the test routine
-		/// </summary>
+		private string _updaterModulePath;
 
 		override protected void Dispose(bool disposing)
 		{
@@ -121,7 +127,8 @@ namespace NSVRGui
 					}
 				}
 			}
-	
+			_updaterModulePath = Path.Combine(Application.StartupPath, "updater.exe");
+
 			_cachedServiceVersion = new ServiceVersion();
 			_cachedDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
 			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
@@ -129,11 +136,23 @@ namespace NSVRGui
 
 			_serviceController = new ServiceController();
 			_serviceController.ServiceName = "Hardlight VR Runtime";
+			_updateMenu = new MenuItem("Updates", new MenuItem[] {
+				new MenuItem("Options", UpdateConfiguration),
+				new MenuItem("Check now", CheckUpdates),
+			});
 
+			_audioMenu = new MenuItem("Audio", new MenuItem[]
+			{
+				new MenuItem("Enable audio to haptics", EnableAudio),
+				new MenuItem("Disable audio to haptics", DisableAudio)
+			});
+			
 			var myMenu = new ContextMenu(new MenuItem[] {
 					new MenuItem("Enable Runtime", StartService),
 					new MenuItem("Disable Runtime", StopService),
-					new MenuItem("Test Suit", TestSuit),
+					new MenuItem("Test Everything", TestSuit),
+					_audioMenu,
+					_updateMenu,
 					new MenuItem("Version info", VersionInfo),
 					_deviceMenuList,
 				new MenuItem("Exit", new EventHandler((object o, EventArgs e) => { Exit(); }))
@@ -232,16 +251,65 @@ namespace NSVRGui
 					string menuKey = deviceToStringKey(device.Value);
 					MenuItem a = new MenuItem(menuKey);
 					a.Name = menuKey;
-					a.Click += (object sender, EventArgs e) => {
-						CreateAndPlayHaptic(device.Value.Id);
+					a.MenuItems.Add(new MenuItem("Test haptics", (object sender, EventArgs e) =>{ CreateAndPlayHaptic(device.Value.Id); }));
+					a.MenuItems.Add(new MenuItem("Enable tracking", (object sender, EventArgs e) => { EnableTracking(device.Value.Id); }));
+					a.MenuItems.Add(new MenuItem("Disable tracking", (object sender, EventArgs e) => { DisableTracking(device.Value.Id); }));
 
-					};
 					_deviceMenuList.MenuItems.Add(a);
 				}
 			}
 		}
+		private void EnableTracking(uint device_id)
+		{
+			unsafe
+			{
+				Interop.HLVR_System_EnableTracking(_pluginPtr, device_id);
+			}
+		}
+		private void DisableTracking(uint device_id)
+		{
+			unsafe
+			{
+				Interop.HLVR_System_DisableTracking(_pluginPtr, device_id);
+			}
+		}
+		private void EnableAudio(object sender, EventArgs args)
+		{
+			unsafe
+			{
+				UInt32[] chests = new UInt32[2] { 4000000, 5000000 };
+				Interop.HLVR_Event* enable = null;
+				Interop.HLVR_Event_Create(&enable, Interop.HLVR_EventType.BeginAnalogAudio);
+				Interop.HLVR_Event_SetUInt32s(enable, Interop.HLVR_EventKey.Target_Regions_UInt32s, chests, (uint)chests.Length);
+				Interop.HLVR_System_StreamEvent(_pluginPtr, enable);
+				Interop.HLVR_Event_Destroy(&enable);
+			}
+		}
 
-		
+		private void DisableAudio(object sender, EventArgs args)
+		{
+			unsafe
+			{
+				UInt32[] chests = new UInt32[2] { 4000000, 5000000  };
+				Interop.HLVR_Event* enable = null;
+				Interop.HLVR_Event_Create(&enable, Interop.HLVR_EventType.EndAnalogAudio);
+				Interop.HLVR_Event_SetUInt32s(enable, Interop.HLVR_EventKey.Target_Regions_UInt32s, chests, (uint)chests.Length);
+				Interop.HLVR_System_StreamEvent(_pluginPtr, enable);
+				Interop.HLVR_Event_Destroy(&enable);
+			}
+		}
+
+		private void UpdateConfiguration(object sender, EventArgs args)
+		{
+			Process process = Process.Start(_updaterModulePath, "/configure");
+			process.Close();
+		}
+
+		private void CheckUpdates(object sender, EventArgs args)
+		{
+			Process process = Process.Start(_updaterModulePath, "/checknow");
+			process.Close();
+		}
 
 		private void CheckStatusSuit(object sender, EventArgs args)
 		{
