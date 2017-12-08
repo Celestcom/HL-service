@@ -14,20 +14,20 @@ namespace NSVRGui
 	public partial class VersionInfo : Form
 	{
 		private Label serviceVersion;
-		private Label chimeraVersion;
+		private Label clientVersion;
 		private string installPath;
-		public VersionInfo(ServiceVersion version)
+		public VersionInfo(DllVersions version)
 		{
 			InitializeComponent();
 			serviceVersion = (Label)Controls["serviceversion"];
-			chimeraVersion = (Label)Controls["chimeraversion"];
-			serviceVersion.Text = version.ToString();
-			chimeraVersion.Text = Properties.Resources.ChimeraVersion;
+			clientVersion = (Label)Controls["clientversion"];
+			serviceVersion.Text = version.Service.ToString();
+			clientVersion.Text = version.Client.ToString();
 			Rectangle r = Screen.PrimaryScreen.WorkingArea;
 			this.StartPosition = FormStartPosition.Manual;
 			this.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - this.Width, Screen.PrimaryScreen.WorkingArea.Height - this.Height);
 
-			RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software\\Nullspace VR\\Service", false);
+			RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Hardlight VR\\Service", false);
 			if (rk != null)
 			{
 				installPath = (string)rk.GetValue("InstallPath");

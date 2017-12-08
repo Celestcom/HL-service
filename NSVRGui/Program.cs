@@ -23,13 +23,26 @@ namespace NSVRGui
 		}
 	}
 
-	public class ServiceVersion
+	public class Version
 	{
 		public uint Major;
 		public uint Minor;
 		public override string ToString()
 		{
 			return string.Format("{0}.{1}", Major, Minor);
+		}
+	}
+	public class DllVersions
+	{
+
+		public Version Service;
+		public Version Client;
+
+		public DllVersions()
+		{
+			Service = new Version();
+			Client = new Version();
+
 		}
 	}
 
@@ -70,7 +83,7 @@ namespace NSVRGui
 		/// <summary>
 		/// Cached service version information, used to display in the Version Info window.
 		/// </summary>
-		private ServiceVersion _cachedServiceVersion; 
+		private DllVersions _cachedServiceVersion; 
 
 		/// <summary>
 		/// The little menu of devices when you right click on the tray icon
@@ -99,10 +112,7 @@ namespace NSVRGui
 			{
 				unsafe
 				{
-					fixed (Interop.HLVR_System** ptr = &_pluginPtr)
-					{
-						Interop.HLVR_System_Destroy(ptr);
-					}
+					Interop.HLVR_System_Destroy(_pluginPtr);
 				}
 			}
 			_disposed = true;
@@ -129,7 +139,11 @@ namespace NSVRGui
 			}
 			_updaterModulePath = Path.Combine(Application.StartupPath, "updater.exe");
 
-			_cachedServiceVersion = new ServiceVersion();
+			_cachedServiceVersion = new DllVersions();
+			uint clientVersion = Interop.HLVR_Version_Get();
+			_cachedServiceVersion.Client.Minor = clientVersion >> 16;
+			_cachedServiceVersion.Client.Major = clientVersion >> 24;
+
 			_cachedDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
 			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
 
@@ -184,8 +198,8 @@ namespace NSVRGui
 
 			if (Interop.OK(Interop.HLVR_System_GetRuntimeInfo(_pluginPtr, ref serviceInfo)))
 			{
-				_cachedServiceVersion.Major = serviceInfo.MajorVersion;
-				_cachedServiceVersion.Minor = serviceInfo.MinorVersion;
+				_cachedServiceVersion.Service.Major = serviceInfo.MajorVersion;
+				_cachedServiceVersion.Service.Minor = serviceInfo.MinorVersion;
 				return true;
 			}
 
@@ -263,14 +277,14 @@ namespace NSVRGui
 		{
 			unsafe
 			{
-				Interop.HLVR_System_EnableTracking(_pluginPtr, device_id);
+				Interop.HLVR_System_Tracking_Enable(_pluginPtr, device_id);
 			}
 		}
 		private void DisableTracking(uint device_id)
 		{
 			unsafe
 			{
-				Interop.HLVR_System_DisableTracking(_pluginPtr, device_id);
+				Interop.HLVR_System_Tracking_Disable(_pluginPtr, device_id);
 			}
 		}
 		private void EnableAudio(object sender, EventArgs args)
@@ -281,8 +295,8 @@ namespace NSVRGui
 				Interop.HLVR_Event* enable = null;
 				Interop.HLVR_Event_Create(&enable, Interop.HLVR_EventType.BeginAnalogAudio);
 				Interop.HLVR_Event_SetUInt32s(enable, Interop.HLVR_EventKey.Target_Regions_UInt32s, chests, (uint)chests.Length);
-				Interop.HLVR_System_StreamEvent(_pluginPtr, enable);
-				Interop.HLVR_Event_Destroy(&enable);
+				Interop.HLVR_System_PushEvent(_pluginPtr, enable);
+				Interop.HLVR_Event_Destroy(enable);
 			}
 		}
 
@@ -294,8 +308,8 @@ namespace NSVRGui
 				Interop.HLVR_Event* enable = null;
 				Interop.HLVR_Event_Create(&enable, Interop.HLVR_EventType.EndAnalogAudio);
 				Interop.HLVR_Event_SetUInt32s(enable, Interop.HLVR_EventKey.Target_Regions_UInt32s, chests, (uint)chests.Length);
-				Interop.HLVR_System_StreamEvent(_pluginPtr, enable);
-				Interop.HLVR_Event_Destroy(&enable);
+				Interop.HLVR_System_PushEvent(_pluginPtr, enable);
+				Interop.HLVR_Event_Destroy(enable);
 			}
 		}
 
@@ -430,7 +444,7 @@ namespace NSVRGui
 				Interop.HLVR_Event_SetUInt32s(haptic, Interop.HLVR_EventKey.Target_Nodes_UInt32s, singleLoc, 1);
 				Interop.HLVR_Event_SetInt(haptic, Interop.HLVR_EventKey.DiscreteHaptic_Waveform_Int, (int)Interop.HLVR_Waveform.Click);
 				Interop.HLVR_Timeline_AddEvent(timeline, timeOffset * i, haptic);
-				Interop.HLVR_Event_Destroy(&haptic);
+				Interop.HLVR_Event_Destroy(haptic);
 			}
 
 
@@ -440,8 +454,8 @@ namespace NSVRGui
 			Interop.HLVR_Timeline_Transmit(timeline, _pluginPtr, effect);
 			Interop.HLVR_Effect_Play(effect);
 
-			Interop.HLVR_Timeline_Destroy(&timeline);
-			Interop.HLVR_Effect_Destroy(&effect);
+			Interop.HLVR_Timeline_Destroy(timeline);
+			Interop.HLVR_Effect_Destroy(effect);
 		}
 
 		private void DelayWhilePluginInitializes_Tick(object sender, EventArgs e)

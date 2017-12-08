@@ -179,7 +179,7 @@ namespace NSVRGui
 		public static extern unsafe int HLVR_System_Create(HLVR_System** agent);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe void HLVR_System_Destroy(HLVR_System** agent);
+		public static extern unsafe void HLVR_System_Destroy(HLVR_System* agent);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static unsafe extern int HLVR_System_SuspendEffects(HLVR_System* agent);
@@ -223,7 +223,7 @@ namespace NSVRGui
 		public static extern unsafe int HLVR_Event_Create(HLVR_Event** eventData, HLVR_EventType type);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe void HLVR_Event_Destroy(HLVR_Event** eventData);
+		public static extern unsafe void HLVR_Event_Destroy(HLVR_Event* eventData);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Event_SetFloat(HLVR_Event* eventData, HLVR_EventKey key, float value);
@@ -240,7 +240,7 @@ namespace NSVRGui
 		public static extern unsafe int HLVR_Timeline_Create(HLVR_Timeline** timeline);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe void HLVR_Timeline_Destroy(HLVR_Timeline** timeline);
+		public static extern unsafe void HLVR_Timeline_Destroy(HLVR_Timeline* timeline);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Timeline_AddEvent(HLVR_Timeline* timeline, double timeOffsetSeconds, HLVR_Event* data);
@@ -253,7 +253,7 @@ namespace NSVRGui
 		public static extern unsafe int HLVR_Effect_Create(HLVR_Effect** effect);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe void HLVR_Effect_Destroy(HLVR_Effect** effect);
+		public static extern unsafe void HLVR_Effect_Destroy(HLVR_Effect* effect);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_Effect_Play(HLVR_Effect* effect);
@@ -295,17 +295,17 @@ namespace NSVRGui
 		public static extern int HLVR_BodyView_GetIntensity(IntPtr body, UInt32 nodeIndex, ref float outIntensity);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_StreamEvent(HLVR_System* system, HLVR_Event* eventData);
+		public static extern unsafe int HLVR_System_PushEvent(HLVR_System* system, HLVR_Event* eventData);
 
 		/* Tracking */
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_PollTracking(HLVR_System* agent, ref HLVR_TrackingUpdate updatePtr);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_EnableTracking(HLVR_System* ptr, UInt32 deviceId);
+		public static extern unsafe int HLVR_System_Tracking_Enable(HLVR_System* ptr, UInt32 deviceId);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_DisableTracking(HLVR_System* ptr, UInt32 deviceId);
+		public static extern unsafe int HLVR_System_Tracking_Disable(HLVR_System* ptr, UInt32 deviceId);
 
 
 		public enum AreaFlag

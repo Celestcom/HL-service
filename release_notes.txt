@@ -1,19 +1,34 @@
-This is a minor release for Unreal blueprint nodes and the Unity body mimic tools.
+This is the last Unity developer release before the public release at the end of November/beginning of December.
+There will be an Unreal 4.18 release soon (TM); note that the Runtime Installer in this release is not compatible with previous Unreal releases.
+
 
 Release Notes
 ------------------------
 Service
-    - No changes
-Plugin 
-    -  Much better performance and stability
+    - Support for MarkIII Hardlight Suits
+    - Many bugfixes and stability improvements
+Hardlight.dll (CAPI) 
+    - Massive renaming from NSVR to HLVR
+    - Allow events to target nodes or regions
+    - add Analog Audio and Buffered Haptic events
 Unity SDK
-    - Improved the VRMimic tools
-    - Organized and commented the Meteor Massage Demo
-    - Revised the available functions in HardlightSuit  
-Unreal SDK
-    - Added BasicHapticHelper (for checking service connection and cleaning up haptics on scene change)
-    - Expanded the Blueprint Function Library with better error reporting.
-	- Creating handles with null assets now results in an empty handle, rather than a game-disrupting error
+    - Brand new ScriptableObject (Scrob) asset format 
+        * HapticSequence
+        * HapticPattern
+        * HapticExperience
+    - Assets are same type as runtime types
+    - Asset Importer now creates Scrob assets.
+    - New Scrob asset editors for each type.
+    - Previewing Scrob assets in editor.
+    - Improvement to the VRMimic tools
+    - Experimental code for suit tracking/arm & torso mimic tools
+    - Haptics Explorer is now 3D
+    - Haptic Spherecasting - great for swords/lasers/etc (check example in Haptics Explorer)
+    - New Gathering impulse (the opposite of an emanation)
+    - Temporarily disabled Haptics Explorer's Emulation Mode
+    - all references of NullSpace are changed to Hardlight, and assets using 'ns' namespace were changed to 'hl'
+    - Added custom icons for new asset types (in Gizmos folder)
+    - Added custom icons for VR Mimic gizmos (in Gizmos folder)
 HapticAssetTool
-    - No changes
+    - Write a version number into HDFs (version 2)
 	

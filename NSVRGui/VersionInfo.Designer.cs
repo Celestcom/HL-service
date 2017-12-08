@@ -31,9 +31,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VersionInfo));
 			this.releasenotes = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.chimeraversion = new System.Windows.Forms.Label();
 			this.serviceversion = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.clientversion = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// releasenotes
@@ -58,26 +58,6 @@
 			this.label1.Text = "Hardlight VR Runtime";
 			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(13, 68);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(139, 15);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Chimera Distribution";
-			this.label2.Click += new System.EventHandler(this.label2_Click);
-			// 
-			// chimeraversion
-			// 
-			this.chimeraversion.AutoSize = true;
-			this.chimeraversion.Location = new System.Drawing.Point(25, 93);
-			this.chimeraversion.Name = "chimeraversion";
-			this.chimeraversion.Size = new System.Drawing.Size(79, 13);
-			this.chimeraversion.TabIndex = 3;
-			this.chimeraversion.Text = "Default Version";
-			// 
 			// serviceversion
 			// 
 			this.serviceversion.AutoSize = true;
@@ -88,13 +68,33 @@
 			this.serviceversion.Text = "Default Version";
 			this.serviceversion.Click += new System.EventHandler(this.serviceversion_Click);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(13, 68);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(135, 15);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Hardlight.dll (client)";
+			this.label2.Click += new System.EventHandler(this.label2_Click);
+			// 
+			// clientversion
+			// 
+			this.clientversion.AutoSize = true;
+			this.clientversion.Location = new System.Drawing.Point(25, 95);
+			this.clientversion.Name = "clientversion";
+			this.clientversion.Size = new System.Drawing.Size(79, 13);
+			this.clientversion.TabIndex = 5;
+			this.clientversion.Text = "Default Version";
+			// 
 			// VersionInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(294, 158);
+			this.Controls.Add(this.clientversion);
 			this.Controls.Add(this.serviceversion);
-			this.Controls.Add(this.chimeraversion);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.releasenotes);
@@ -113,8 +113,8 @@
 
 		private System.Windows.Forms.Button releasenotes;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label chimeraversion;
 		private System.Windows.Forms.Label serviceversion;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label clientversion;
 	}
 }

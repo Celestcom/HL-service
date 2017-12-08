@@ -4,6 +4,23 @@ using System.Threading;
 
 namespace NSVRService
 {
+	public class PlatformInstantiationException : Exception
+	{
+		public PlatformInstantiationException()
+		{
+		}
+
+		public PlatformInstantiationException(string message)
+        : base(message)
+    {
+		}
+
+		public PlatformInstantiationException(string message, Exception inner)
+        : base(message, inner)
+    {
+		}
+	}
+
 	public partial class NSVRService : ServiceBase
 	{
 		private IntPtr _ptr;
@@ -23,7 +40,11 @@ namespace NSVRService
 		
 		protected override void OnStart(string[] args)
 		{
-			Interop.hvr_platform_create(ref _ptr);
+			if (Interop.hvr_platform_create(ref _ptr) < 0)
+			{
+				throw new PlatformInstantiationException("Could not instantiate the runtime!");
+			}
+
 			Interop.hvr_platform_startup(_ptr);
 		}
 		
