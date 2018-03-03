@@ -22,8 +22,7 @@ namespace NSVRService
 		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 		public static extern uint hvr_platform_getversion(IntPtr ptr);
 
-		[DllImport("HardlightPlatform.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern bool hvr_platform_isdllcompatible(IntPtr ptr);
+	
 
 	}
 }

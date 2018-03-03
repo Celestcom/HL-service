@@ -56,8 +56,9 @@ namespace NSVRGui
 		[StructLayout(LayoutKind.Sequential)]
 		public struct HLVR_RuntimeInfo
 		{
-			public uint MajorVersion;
-			public uint MinorVersion;
+			public int MajorVersion;
+			public int MinorVersion;
+			public int PatchVersion;
 		};
 
 		public enum HLVR_EventKey
@@ -198,9 +199,6 @@ namespace NSVRGui
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern uint HLVR_Version_Get();
 
-		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern int HLVR_Version_IsCompatibleDLL();
-
 
 		/* Device enumeration */
 
@@ -270,8 +268,6 @@ namespace NSVRGui
 
 		/* Experimental APIs */
 
-		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_Immediate_Set(HLVR_System* agent, [In, Out] UInt16[] intensities, [In, Out] UInt32[] areas, int length);
 
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int HLVR_BodyView_Create(ref IntPtr body);
@@ -298,9 +294,7 @@ namespace NSVRGui
 		public static extern unsafe int HLVR_System_PushEvent(HLVR_System* system, HLVR_Event* eventData);
 
 		/* Tracking */
-		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
-		public static extern unsafe int HLVR_System_PollTracking(HLVR_System* agent, ref HLVR_TrackingUpdate updatePtr);
-
+	
 		[DllImport("Hardlight.dll", CallingConvention = CallingConvention.Cdecl)]
 		public static extern unsafe int HLVR_System_Tracking_Enable(HLVR_System* ptr, UInt32 deviceId);
 

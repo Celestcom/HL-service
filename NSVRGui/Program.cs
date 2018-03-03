@@ -6,6 +6,10 @@ using System.Linq;
 using System.Diagnostics;
 using System.IO;
 
+using Windows.Devices.WiFi;
+using System.Threading.Tasks;
+using Microsoft.Win32;
+
 namespace NSVRGui
 {
 
@@ -25,11 +29,13 @@ namespace NSVRGui
 
 	public class Version
 	{
-		public uint Major;
-		public uint Minor;
+		public int Major;
+		public int Minor;
+		public int Patch;
+		
 		public override string ToString()
 		{
-			return string.Format("{0}.{1}", Major, Minor);
+			return string.Format("{0}.{1}.{2}", Major, Minor, Patch);
 		}
 	}
 	public class DllVersions
@@ -95,12 +101,19 @@ namespace NSVRGui
 
 		private MenuItem _audioMenu;
 
+		private HashSet<string> _wirelessAps;
+		private MenuItem _wirelessDeviceMenu;
+		private MenuItem _wirelessMenu;
+
 		/// <summary>
 		/// Needed for IDisposable support (because of the interop with native Hardlight.dll)
 		/// </summary>
 		private bool _disposed = false;
 
 		private string _updaterModulePath;
+
+
+		private string _installPath;
 
 		override protected void Dispose(bool disposing)
 		{
@@ -141,15 +154,18 @@ namespace NSVRGui
 
 			_cachedServiceVersion = new DllVersions();
 			uint clientVersion = Interop.HLVR_Version_Get();
-			_cachedServiceVersion.Client.Minor = clientVersion >> 16;
-			_cachedServiceVersion.Client.Major = clientVersion >> 24;
-
+			_cachedServiceVersion.Client.Minor = (int) (clientVersion & 0x00FF0000) >> 16;
+			_cachedServiceVersion.Client.Major = (int) (clientVersion & 0xFF000000) >> 24;
+			_cachedServiceVersion.Client.Patch = (int) (clientVersion & 0x0000FFFF);
 			_cachedDevices = new Dictionary<uint, Interop.HLVR_DeviceInfo>();
 			_deviceMenuList = new MenuItem("Devices", new MenuItem[] { });
-
+			_wirelessDeviceMenu = new MenuItem("Connect", new MenuItem[] { });
 
 			_serviceController = new ServiceController();
 			_serviceController.ServiceName = "Hardlight VR Runtime";
+
+			_wirelessAps = new HashSet<string>();
+
 			_updateMenu = new MenuItem("Updates", new MenuItem[] {
 				new MenuItem("Options", UpdateConfiguration),
 				new MenuItem("Check now", CheckUpdates),
@@ -160,7 +176,12 @@ namespace NSVRGui
 				new MenuItem("Enable audio to haptics", EnableAudio),
 				new MenuItem("Disable audio to haptics", DisableAudio)
 			});
-			
+
+			_wirelessMenu = new MenuItem("Wireless", new MenuItem[]
+			{
+				new MenuItem("Scan", WifiAsync),
+				 _wirelessDeviceMenu
+			});
 			var myMenu = new ContextMenu(new MenuItem[] {
 					new MenuItem("Enable Runtime", StartService),
 					new MenuItem("Disable Runtime", StopService),
@@ -169,6 +190,7 @@ namespace NSVRGui
 					_updateMenu,
 					new MenuItem("Version info", VersionInfo),
 					_deviceMenuList,
+					_wirelessMenu,
 				new MenuItem("Exit", new EventHandler((object o, EventArgs e) => { Exit(); }))
 			});
 
@@ -191,6 +213,12 @@ namespace NSVRGui
 			_hapticsDelay.Interval = 1000;
 			_hapticsDelay.Tick += DelayWhilePluginInitializes_Tick;
 
+			RegistryKey rk = Registry.LocalMachine.OpenSubKey("SOFTWARE\\WOW6432Node\\Hardlight VR\\Service", false);
+			if (rk != null)
+			{
+				_installPath = (string)rk.GetValue("InstallPath");
+			}
+
 		}
 		private unsafe bool isServiceActuallyConnected()
 		{
@@ -200,6 +228,7 @@ namespace NSVRGui
 			{
 				_cachedServiceVersion.Service.Major = serviceInfo.MajorVersion;
 				_cachedServiceVersion.Service.Minor = serviceInfo.MinorVersion;
+				_cachedServiceVersion.Service.Patch = serviceInfo.PatchVersion;
 				return true;
 			}
 
@@ -273,6 +302,118 @@ namespace NSVRGui
 				}
 			}
 		}
+
+		private async Task<List<string>> GetWirelessSuits()
+		{
+			
+
+			var access = await WiFiAdapter.RequestAccessAsync();
+			var result = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
+			if (result.Count >= 1)
+			{
+				var nwAdapter = await WiFiAdapter.FromIdAsync(result[0].Id);
+				await nwAdapter.ScanAsync();
+				//because spelling errors
+				var nw = nwAdapter.NetworkReport.AvailableNetworks.Where(network => network.Ssid.Contains("NSVR") || network.Ssid.Contains("NVSR:"));
+
+				return nw.Select(suit => suit.Ssid).ToList();
+				//if (nw.Count() > 0)
+				//{
+				//	var suitAP = nw.First();
+				//	var pass = SsidToPassword(suitAP.Ssid);
+				//	var conn = await nwAdapter.ConnectAsync(suitAP, WiFiReconnectionKind.Automatic, new Windows.Security.Credentials.PasswordCredential("none", "none", pass));
+
+				//	return new Tuple<WiFiConnectionStatus, string>(conn.ConnectionStatus, pass);
+
+				//}
+			}
+
+			return new List<string>();
+		}
+		private async Task<Tuple<Windows.Devices.WiFi.WiFiConnectionStatus, string>> ConnectWifiAndGetPassword(string ssid)
+		{
+
+			var access = await WiFiAdapter.RequestAccessAsync();
+			var result = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
+			if (result.Count >= 1)
+			{
+				var nwAdapter = await WiFiAdapter.FromIdAsync(result[0].Id);
+				await nwAdapter.ScanAsync();
+				//because spelling errors
+				var nw = nwAdapter.NetworkReport.AvailableNetworks.Where(network => network.Ssid.Contains(ssid));
+				if (nw.Count() > 0)
+				{
+					var suitAP = nw.First();
+					var pass = SsidToPassword(suitAP.Ssid);
+					var conn = await nwAdapter.ConnectAsync(suitAP, WiFiReconnectionKind.Automatic, new Windows.Security.Credentials.PasswordCredential("none", "none", pass));
+
+					return new Tuple<WiFiConnectionStatus, string>(conn.ConnectionStatus, pass);
+
+				}
+			}
+		
+			return new Tuple<WiFiConnectionStatus, string>(WiFiConnectionStatus.NetworkNotAvailable, "");
+			
+		}
+		private async void ConnectToWifi(string ap)
+		{
+			var connectionResult = await ConnectWifiAndGetPassword(ap);
+
+			if (connectionResult.Item1 == WiFiConnectionStatus.Success)
+			{
+				StopService(null, null);
+
+				string hardlightRuntimeDir = Path.Combine(_installPath, "plugins/hardlight/");
+
+				string json = "{\n\"host\" : \"192.168.4.1\",\n\"port\" : \"23\",\n\"password\" : \"" + connectionResult.Item2 + "\"\n}";
+
+
+
+				using (StreamWriter DestinationWriter = File.CreateText(hardlightRuntimeDir + "Wifi.json"))
+				{
+					await DestinationWriter.WriteAsync(json);
+				}
+
+				StartService(null, null);
+			}
+		}
+		private async void WifiAsync(object sender, EventArgs args)
+		{
+			_wirelessAps.Clear();
+			var aps = await GetWirelessSuits();
+			foreach (var ap in aps) { _wirelessAps.Add(ap); }
+			_wirelessDeviceMenu.MenuItems.Clear();
+
+			foreach (var ap in _wirelessAps) {
+				MenuItem a = new MenuItem(ap, (object s, EventArgs e) => { ConnectToWifi(ap);  });
+				
+
+				_wirelessDeviceMenu.MenuItems.Add(a);
+			}
+			
+
+			
+
+		}
+		private static string SsidToPassword(string ssid)
+		{
+			var hexPassword = ssid.Substring(4).Replace(":", String.Empty);
+			return CalculatePassword(hexPassword);
+		}
+		private static byte[] HexStringToHex(string inputHex)
+		{
+			var resultantArray = new byte[inputHex.Length / 2];
+			for (var i = 0; i < resultantArray.Length; i++)
+			{
+				resultantArray[i] = System.Convert.ToByte(inputHex.Substring(i * 2, 2), 16);
+			}
+			return resultantArray;
+		}
+		private static string CalculatePassword(string hexPassword)
+		{
+			return Convert.ToBase64String(HexStringToHex(hexPassword)).ToLower();
+		}
+
 		private void EnableTracking(uint device_id)
 		{
 			unsafe
